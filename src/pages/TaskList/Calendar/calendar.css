@@ -1,0 +1,123 @@
+header {
+  background-color: #fff;
+  display: flex;
+  height: 58px;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+.calendar-container {
+  position: relative;
+  padding: 55px 15px 30px 10px;
+  margin: 0 8px;
+  border: 1px solid #353535;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #dadada;
+  background-color: #fff;
+}
+.calendar-container__top {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  width: 100%;
+  height: 50px;
+}
+.calendar-container__top__bar {
+  position: absolute;
+  top: 19px;
+  left: 0px;
+  width: 100%;
+  height: 34px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #353535;
+}
+.calendar-container__top__spring {
+  width: 10px;
+  height: 20px;
+  margin: 10px 25px 0px 25px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: #ffffff;
+  z-index: 1;
+}
+.calendar-container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.calendar-container__btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  color: #e9e8e8;
+}
+.calendar-container__title {
+  color: #222741;
+}
+
+.calendar-table {
+  margin-top: 12px;
+  width: 100%;
+}
+.calendar-table__item {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  color: #303030;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+.calendar-table__row {
+  display: flex;
+  justify-content: center;
+}
+.calendar-table__header .calendar-table__col {
+  display: inline-block;
+  color: #99a4ae;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 3px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 40px;
+  height: 30px;
+}
+@media (min-width: 360px) {
+  .calendar-table__header .calendar-table__col {
+    width: 46px;
+  }
+}
+@media (min-width: 410px) {
+  .calendar-table__header .calendar-table__col {
+    width: 54px;
+  }
+}
+.calendar-table__body .calendar-table__col {
+  width: 40px;
+  height: 42px;
+  padding-bottom: 2px;
+}
+@media (min-width: 360px) {
+  .calendar-table__body .calendar-table__col {
+    width: 46px;
+    height: 48px;
+  }
+}
+@media (min-width: 410px) {
+  .calendar-table__body .calendar-table__col {
+    width: 54px;
+    height: 56px;
+  }
+}

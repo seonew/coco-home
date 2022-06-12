@@ -1,0 +1,9 @@
+[dev]
+  port = 3000 # Port that the dev server will be listening on
+  targetPort = 3000 # Port of target app server
+  functions = "functions/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

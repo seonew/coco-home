@@ -1,0 +1,136 @@
+import { FC, useCallback, memo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'stores';
+import { actions } from '../stores/slice';
+import { actions as appActions } from 'stores/slice';
+import { HomeMember } from 'types';
+
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@material-ui/core';
+import MemberList from './MemberList';
+import Search from 'components/Search';
+import AlertModal from 'components/AlertModal';
+
+interface MemberListModalProps {
+  open: boolean;
+}
+
+const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
+  const dispatch = useDispatch();
+  const searchMembers = useSelector<RootState, HomeMember[] | null>(
+    (state) => state.homeRegister.searchMembers
+  );
+  const members = useSelector<RootState, HomeMember[]>(
+    (state) => state.homeRegister.nextHome.members
+  );
+  const openAlertModal = useSelector<RootState, boolean>(
+    (state) => state.app.alertModal.open
+  );
+  const [nextMembers, setNextMembers] = useState<HomeMember[]>([]);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const handleClose = useCallback(() => {
+    dispatch(actions.setOpenMemberListModal(!open));
+  }, [dispatch, open]);
+
+  const showAlertModal = useCallback(
+    (text) => {
+      setAlertMessage(text);
+      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+    },
+    [dispatch, openAlertModal]
+  );
+
+  const handleClickItem = useCallback(() => {
+    if (nextMembers.length === 0) {
+      showAlertModal('추가할 사용자를 선택해 주세요.');
+      return;
+    }
+
+    const result: HomeMember[] = [];
+    for (let current of nextMembers) {
+      const memberList = members.map((element) => {
+        return element.userId;
+      });
+
+      if (memberList.includes(current.userId)) {
+        showAlertModal('이미 추가된 사용자 입니다.');
+        return;
+      }
+
+      const nextItem = {
+        name: current.name,
+        type: current.type,
+        userId: current.userId,
+        imgUrl: current.imgUrl,
+      };
+
+      result.push(nextItem);
+    }
+
+    dispatch(actions.addHomeMembers(result));
+
+    setNextMembers([]);
+    handleClose();
+  }, [dispatch, handleClose, members, nextMembers, showAlertModal]);
+
+  const handleClickSearchItem = useCallback(
+    (text) => {
+      dispatch(actions.searchMemberUser(text));
+    },
+    [dispatch]
+  );
+
+  const handleClickMember = useCallback(
+    (item, checked) => {
+      if (checked) {
+        setNextMembers([...nextMembers, item]);
+      } else {
+        const nextItems = nextMembers.filter(
+          (element) => element.userId !== item.userId
+        );
+        setNextMembers(nextItems);
+      }
+    },
+    [nextMembers]
+  );
+
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">
+        추가할 사용자를 선택해주세요.
+      </DialogTitle>
+      <Search
+        onClickItem={handleClickSearchItem}
+        placeholder={'사용자 이름을 입력해주세요.'}
+      />
+      <DialogContent>
+        <MemberList members={searchMembers} onClickItem={handleClickMember} />
+      </DialogContent>
+      {searchMembers ? (
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            취소
+          </Button>
+          <Button onClick={handleClickItem} color="primary" data-cy="confirm">
+            확인
+          </Button>
+        </DialogActions>
+      ) : (
+        ''
+      )}
+      <AlertModal open={openAlertModal} text={alertMessage} />
+    </Dialog>
+  );
+};
+
+export default memo(MemberListModal);
