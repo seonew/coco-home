@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogTitle,
 } from '@material-ui/core';
-import AlertModal from 'components/AlertModal';
 
 interface RegisterModalProps {
   open: boolean;
@@ -27,12 +26,10 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
   const openAlertModal = useSelector<RootState, boolean>(
     (state) => state.app.alertModal.open
   );
-  const [alertMessage, setAlertMessage] = useState('');
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -92,7 +89,6 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
           확인
         </Button>
       </DialogActions>
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Dialog>
   );
 };

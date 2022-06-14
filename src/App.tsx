@@ -23,6 +23,7 @@ import SearchList from './pages/SearchList';
 import MenuBar from './components/MenuBar';
 import CallbackGuest from 'pages/AuthCallback/Guest';
 import ConfirmModal from 'components/ConfirmModal';
+import AlertModal from 'components/AlertModal';
 
 const AppLayout = styled.div`
   display: flex;
@@ -140,6 +141,7 @@ const App: FC = () => {
             <MenuBar />
           </Route>
           <ConfirmModal />
+          <AlertModal />
         </PrivateRoute>
 
         <Redirect path="*" to="/" />

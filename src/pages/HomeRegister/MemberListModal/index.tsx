@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import MemberList from './MemberList';
 import Search from 'components/Search';
-import AlertModal from 'components/AlertModal';
 
 interface MemberListModalProps {
   open: boolean;
@@ -32,7 +31,6 @@ const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
     (state) => state.app.alertModal.open
   );
   const [nextMembers, setNextMembers] = useState<HomeMember[]>([]);
-  const [alertMessage, setAlertMessage] = useState('');
 
   const handleClose = useCallback(() => {
     dispatch(actions.setOpenMemberListModal(!open));
@@ -40,8 +38,7 @@ const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -128,7 +125,6 @@ const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
       ) : (
         ''
       )}
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Dialog>
   );
 };

@@ -3,7 +3,6 @@ import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import { Paper, IconButton, InputBase, Divider } from '@material-ui/core';
-import AlertModal from 'components/AlertModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores';
 import { actions as appActions } from 'stores/slice';
@@ -24,12 +23,10 @@ const Search = ({ placeholder, onClickItem }: SearchProps) => {
   const openAlertModal = useSelector<RootState, boolean>(
     (state) => state.app.alertModal.open
   );
-  const [alertMessage, setAlertMessage] = useState('');
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -74,7 +71,6 @@ const Search = ({ placeholder, onClickItem }: SearchProps) => {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Root>
   );
 };

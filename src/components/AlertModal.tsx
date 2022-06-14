@@ -1,19 +1,19 @@
 import { memo, useCallback } from 'react';
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'stores';
 import { actions } from 'stores/slice';
+import { Alert } from 'types';
 
-interface AlertModalProps {
-  open: boolean;
-  text: string;
-}
-
-const AlertModal = ({ open, text }: AlertModalProps) => {
+const AlertModal = () => {
   const dispatch = useDispatch();
+  const { open, text } = useSelector<RootState, Alert>(
+    (state) => state.app.alertModal
+  );
 
   const handleClose = useCallback(() => {
-    dispatch(actions.setOpenAlertModal(!open));
-  }, [dispatch, open]);
+    dispatch(actions.setAlertModal({ open: false, text: '' }));
+  }, [dispatch]);
 
   return (
     <>

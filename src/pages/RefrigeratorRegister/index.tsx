@@ -17,7 +17,6 @@ import Counter from 'components/Counter';
 import TextField from 'components/TextField';
 import ExpirationDay from './ExpirationDay';
 import Toggle from './Toggle';
-import AlertModal from 'components/AlertModal';
 
 const Root = styled.div`
   height: 100%;
@@ -31,7 +30,6 @@ const RegisterRefrigerator = () => {
   const [priority, setPriority] = useState(0);
   const [date, setDate] = useState(new Date());
   const [expirationDay, setExpirationDay] = useState(0);
-  const [alertMessage, setAlertMessage] = useState('');
   const spaces = ['냉장', '냉동'];
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
@@ -83,8 +81,7 @@ const RegisterRefrigerator = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -184,7 +181,6 @@ const RegisterRefrigerator = () => {
           </Row>
         )}
       </div>
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Root>
   );
 };
