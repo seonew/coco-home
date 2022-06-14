@@ -59,20 +59,12 @@ const Header = ({ text }: HeaderProps) => {
   return (
     <Root>
       <Container data-cy="header">
-        <Left data-cy="back">
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            size="lg"
-            onClick={handleClickBack}
-          />
+        <Left data-cy="back" onClick={handleClickBack}>
+          <FontAwesomeIcon icon={faChevronLeft} size="lg" />
         </Left>
         <Center>{text}</Center>
-        <Right data-cy="home">
-          <FontAwesomeIcon
-            icon={faUserAlt}
-            size="lg"
-            onClick={handleClickMypage}
-          />
+        <Right data-cy="home" onClick={handleClickMypage}>
+          <FontAwesomeIcon icon={faUserAlt} size="lg" />
         </Right>
       </Container>
     </Root>

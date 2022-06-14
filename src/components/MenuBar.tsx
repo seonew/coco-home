@@ -15,11 +15,12 @@ const Root = styled.div`
   align-items: center;
   justify-content: space-around;
 
+  width: 100%;
   z-index: 100;
   height: 60px;
   background-color: #fff;
   border-top: 1px solid var(--themeColorLN1);
-  width: 100%;
+  font-size: 12px;
 `;
 
 const TabContainer = styled.ul`
@@ -27,12 +28,18 @@ const TabContainer = styled.ul`
   align-items: center;
   list-style: none;
   padding: 0;
+  margin: 0;
   width: 100%;
 `;
 
 const Tab = styled.li`
   flex: 1 1 auto;
   text-align: center;
+`;
+
+const Button = styled.a`
+  display: block;
+  padding: 18px 0;
 `;
 
 const MenuBar = () => {
@@ -48,25 +55,21 @@ const MenuBar = () => {
     <Root>
       <TabContainer>
         <Tab>
-          <FontAwesomeIcon
-            icon={faHome}
-            size="lg"
-            onClick={handleClickItem(constants.PAGE_PATH.MAIN)}
-          />
+          <Button onClick={handleClickItem(constants.PAGE_PATH.MAIN)}>
+            <FontAwesomeIcon icon={faHome} size="2x" />
+          </Button>
         </Tab>
         <Tab>
-          <FontAwesomeIcon
-            icon={faCalendarAlt}
-            size="lg"
-            onClick={handleClickItem(constants.PAGE_PATH.HOME_TASK_LIST)}
-          />
+          <Button onClick={handleClickItem(constants.PAGE_PATH.HOME_TASK_LIST)}>
+            <FontAwesomeIcon icon={faCalendarAlt} size="2x" />
+          </Button>
         </Tab>
         <Tab>
-          <FontAwesomeIcon
-            icon={faUtensilSpoon}
-            size="lg"
+          <Button
             onClick={handleClickItem(constants.PAGE_PATH.REFRIGERATOR_LIST)}
-          />
+          >
+            <FontAwesomeIcon icon={faUtensilSpoon} size="2x" />
+          </Button>
         </Tab>
       </TabContainer>
     </Root>
