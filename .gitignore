@@ -61,7 +61,7 @@ typings/
 .next
 
 # npm package-lock file
-package-lock.json
+# package-lock.json
 
 # Visual Studio Code
 .vscode/*
