@@ -93,8 +93,9 @@ const appSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setOpenAlertModal: (state, action: PayloadAction<boolean>) => {
-      state.alertModal.open = action.payload;
+    setAlertModal: (state, action: PayloadAction<Alert>) => {
+      state.alertModal.open = action.payload.open;
+      state.alertModal.text = action.payload.text;
     },
     setConfirmModal: (state, action: PayloadAction<Confirm>) => {
       state.confirmModal.open = action.payload.open;

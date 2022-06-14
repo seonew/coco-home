@@ -1,4 +1,4 @@
-import { useCallback, useEffect, memo, CSSProperties, useState } from 'react';
+import { useCallback, useEffect, memo, CSSProperties } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'stores';
 import { actions as appActions } from 'stores/slice';
@@ -15,7 +15,6 @@ import TextField from 'components/TextField';
 import RegisterModal from './RegisterModal';
 import MemberListModal from './MemberListModal';
 import { Avatar, Chip } from '@material-ui/core';
-import AlertModal from 'components/AlertModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -55,7 +54,6 @@ const HomeRegister = () => {
   const openAlertModal = useSelector<RootState, boolean>(
     (state) => state.app.alertModal.open
   );
-  const [alertMessage, setAlertMessage] = useState('');
   const dispatch = useDispatch();
 
   const handleClickAddButton = useCallback(
@@ -97,8 +95,7 @@ const HomeRegister = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -235,7 +232,6 @@ const HomeRegister = () => {
       </Row>
       <RegisterModal open={openRegisterModal} />
       <MemberListModal open={openMemberListModal} />
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Root>
   );
 };

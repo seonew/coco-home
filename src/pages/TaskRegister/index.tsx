@@ -18,7 +18,6 @@ import DatePicker from 'components/DatePicker';
 import HeaderButtonContainer from 'components/HeaderButtonContainer';
 import { Home, HomeTask } from 'types';
 import SelectCycleModal from './SelectCycleModal';
-import AlertModal from 'components/AlertModal';
 import Toggle from 'components/Toggle';
 import { Avatar, Button, Chip } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
@@ -62,7 +61,6 @@ const TaskRegister = () => {
   const openAlertModal = useSelector<RootState, boolean>(
     (state) => state.app.alertModal.open
   );
-  const [alertMessage, setAlertMessage] = useState('');
   const members = currentHome['members'];
   const works = currentHome['works'];
   const spaces = currentHome['spaces'];
@@ -149,8 +147,7 @@ const TaskRegister = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      setAlertMessage(text);
-      dispatch(appActions.setOpenAlertModal(!openAlertModal));
+      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
     },
     [dispatch, openAlertModal]
   );
@@ -274,7 +271,6 @@ const TaskRegister = () => {
         selectedItem={selectedContent.cycle.value}
         onSelectItem={handleChangeSelectedCycle}
       />
-      <AlertModal open={openAlertModal} text={alertMessage} />
     </Root>
   );
 };
