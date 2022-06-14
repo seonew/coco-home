@@ -78,7 +78,8 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.span`
-  margin-right: 0.7rem;
+  padding: 10px 0;
+  padding-right: 0.7rem;
 `;
 
 const floatingButtonStyle: CSSProperties = {
@@ -176,22 +177,18 @@ const Mypage = () => {
                           {item.displayName}
                         </DisplayName>
                         <ButtonContainer>
-                          <Button>
-                            <FontAwesomeIcon
-                              icon={faCog}
-                              size="lg"
-                              onClick={handleClickButtonToEdit(item.homeId)}
-                            />
+                          <Button
+                            onClick={handleClickButtonToEdit(item.homeId)}
+                          >
+                            <FontAwesomeIcon icon={faCog} size="1x" />
                           </Button>
                           {item.memberType === 'owner' && (
-                            <Button>
-                              <FontAwesomeIcon
-                                icon={faTrashAlt}
-                                size="lg"
-                                onClick={handleSetHomeIdAndChangeModal(
-                                  item.homeId
-                                )}
-                              />
+                            <Button
+                              onClick={handleSetHomeIdAndChangeModal(
+                                item.homeId
+                              )}
+                            >
+                              <FontAwesomeIcon icon={faTrashAlt} size="1x" />
                             </Button>
                           )}
                         </ButtonContainer>

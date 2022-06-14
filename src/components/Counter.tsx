@@ -16,6 +16,10 @@ const Span = styled.span`
   padding: 0 16px;
 `;
 
+const Button = styled.span`
+  padding: 5px;
+`;
+
 const Counter = ({ onClickItem }: CounterProps) => {
   const [number, setNumber] = useState(0);
 
@@ -38,17 +42,13 @@ const Counter = ({ onClickItem }: CounterProps) => {
 
   return (
     <Root>
-      <FontAwesomeIcon
-        icon={faMinusCircle}
-        size="lg"
-        onClick={handleClickDecrease}
-      />
+      <Button onClick={handleClickDecrease}>
+        <FontAwesomeIcon icon={faMinusCircle} size="lg" />
+      </Button>
       <Span>{number}</Span>
-      <FontAwesomeIcon
-        icon={faPlusCircle}
-        size="lg"
-        onClick={handleClickIncrease}
-      />
+      <Button onClick={handleClickIncrease}>
+        <FontAwesomeIcon icon={faPlusCircle} size="lg" />
+      </Button>
     </Root>
   );
 };

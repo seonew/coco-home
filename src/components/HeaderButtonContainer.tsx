@@ -26,16 +26,18 @@ const Container = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 40px;
-  padding: 10px 20px;
+  padding: 10px 0;
   font-size: 14px;
 `;
 
 const Left = styled.div`
   flex: 0 0 20px;
+  padding: 20px;
 `;
 
 const Right = styled.div`
   flex: 0 0 20px;
+  padding: 20px;
 `;
 
 const Center = styled.div`
@@ -61,16 +63,12 @@ const HeaderButtonContainer = ({
   return (
     <Root>
       <Container>
-        <Left>
-          <FontAwesomeIcon icon={faXmark} size="lg" onClick={handleClickBack} />
+        <Left onClick={handleClickBack}>
+          <FontAwesomeIcon icon={faXmark} size="lg" />
         </Left>
         <Center>{text}</Center>
-        <Right>
-          <FontAwesomeIcon
-            icon={faCheck}
-            size="lg"
-            onClick={handleSaveContents}
-          />
+        <Right onClick={handleSaveContents}>
+          <FontAwesomeIcon icon={faCheck} size="lg" />
         </Right>
       </Container>
     </Root>

@@ -16,7 +16,7 @@ interface ListItemProps {
 
 const Div = styled.div`
   position: relative;
-  padding: 17px 20px 20px;
+  padding: 17px 10px 20px 20px;
   background-color: #fff;
 `;
 
@@ -51,18 +51,16 @@ const Tag = styled.span`
 `;
 
 const useStyles = makeStyles({
-  right: {
+  button: {
     float: 'right',
+    display: 'block',
+    padding: '0 7px 10px 7px',
   },
   mr8: {
     marginRight: '8px',
   },
   mr6: {
     marginRight: '6px',
-  },
-  edit: {
-    float: 'right',
-    marginRight: '0.6rem',
   },
 });
 
@@ -85,14 +83,14 @@ const ListItem = ({ item }: ListItemProps) => {
           <strong>{item.member.name}</strong>
         </Tag>
         <strong>{item.work}</strong>
-        <span className={classes.right}>
+        <span className={classes.button}>
           <FontAwesomeIcon
             icon={faTrashAlt}
             size="1x"
             onClick={handleClickDeleteItem}
           />
         </span>
-        <span className={classes.edit}>
+        <span className={classes.button}>
           <FontAwesomeIcon
             icon={faEdit}
             size="1x"

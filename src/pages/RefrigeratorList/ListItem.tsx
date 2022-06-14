@@ -15,7 +15,7 @@ interface ListItemProps {
 
 const Div = styled.div`
   position: relative;
-  padding: 17px 20px 20px;
+  padding: 17px 10px 20px 20px;
   background-color: #fff;
 `;
 
@@ -56,8 +56,10 @@ const Tag = styled.span`
 `;
 
 const useStyles = makeStyles({
-  right: {
+  button: {
     float: 'right',
+    display: 'block',
+    padding: '0 10px 10px',
   },
   bottom: {
     verticalAlign: 'bottom',
@@ -95,12 +97,8 @@ const ListItem = ({ item }: ListItemProps) => {
         <b>{item.targetItem}</b>
         <Date>{item.date ? item.date.toString() : ''}</Date>
         <Date>{item.expirationDay ? item.expirationDay : ''}</Date>
-        <span className={classes.right}>
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            size="sm"
-            onClick={handleClickDeleteItem}
-          />
+        <span className={classes.button} onClick={handleClickDeleteItem}>
+          <FontAwesomeIcon icon={faTrashAlt} size="1x" />
         </span>
       </CategoryDiv>
       <ContentDiv>
@@ -116,12 +114,8 @@ const ListItem = ({ item }: ListItemProps) => {
           </TextDiv>
           <TextDiv>
             <span className={classes.mr8}>수량: {item.count}</span>
-            <span>
-              <FontAwesomeIcon
-                icon={faMinusCircle}
-                size="sm"
-                onClick={handleClickEditItem}
-              />
+            <span onClick={handleClickEditItem}>
+              <FontAwesomeIcon icon={faMinusCircle} size="sm" />
             </span>
           </TextDiv>
         </ContentInfo>
