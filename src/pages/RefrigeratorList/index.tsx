@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
-import { HomeListItem, RefrigeratorFood } from 'types';
+import { RefrigeratorFood } from 'types';
 import constants, { pageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
@@ -53,9 +53,6 @@ const RegisterRefrigeratorList = () => {
   >((state) => state.refrigeratorList.currentRefrigeratorFoods);
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
-  );
-  const homeList = useSelector<RootState, HomeListItem[] | null>(
-    (state) => state.mypage.homeList
   );
   const loading = useSelector<RootState, boolean>((state) => state.app.loading);
   const [filterType, setFilterType] = useState('normal');
@@ -121,10 +118,8 @@ const RegisterRefrigeratorList = () => {
             <AddIcon />
           </FloatingButton>
         </Container>
-      ) : (homeList?.length as number) > 0 ? (
-        <EmptyHome displayText={'선택'} />
       ) : (
-        <EmptyHome displayText={'등록'} />
+        <EmptyHome displayText={'선택'} />
       )}
     </Root>
   );

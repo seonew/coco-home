@@ -11,6 +11,7 @@ const Root = styled.div`
   background-color: white;
   padding: 7px;
   text-align: right;
+  margin-bottom: 10px;
 `;
 
 const Toggle = ({ onChange }: ToggleProps) => {
