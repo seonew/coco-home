@@ -9,8 +9,14 @@ interface ListProps {
   children?: ReactNode;
 }
 
+const Root = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Layout = styled.div`
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 `;
 
 const Container = styled.ul`
@@ -23,15 +29,17 @@ const Container = styled.ul`
 const Content = styled.li`
   margin: 0;
   padding: 0;
-  margin-bottom: 10px;
+  :not(:first-child) {
+    margin-top: 10px;
+  }
 `;
 
 const List = ({ items, children }: ListProps) => {
   return (
-    <>
+    <Root>
+      {children}
       {items !== null && items.length > 0 ? (
         <>
-          {children}
           <Layout>
             <Container>
               {items.map((item) => {
@@ -50,7 +58,7 @@ const List = ({ items, children }: ListProps) => {
           description="아래 버튼을 눌러 추가해 주세요 :)"
         />
       )}
-    </>
+    </Root>
   );
 };
 
