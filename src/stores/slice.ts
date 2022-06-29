@@ -119,6 +119,7 @@ const appSlice = createSlice({
       state.isAuthenticated = true;
       state.currentHome.id = action.payload.lastHomeId;
     },
+    loginGuest: (state) => {},
     logout: (state) => {},
     logoutSuccess: (state) => {
       state.token = '';

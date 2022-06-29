@@ -21,7 +21,6 @@ import RefrigeratorRegister from './pages/RefrigeratorRegister';
 import RefrigeratorList from './pages/RefrigeratorList';
 import SearchList from './pages/SearchList';
 import MenuBar from './components/MenuBar';
-import CallbackGuest from 'pages/AuthCallback/Guest';
 import ConfirmModal from 'components/ConfirmModal';
 import AlertModal from 'components/AlertModal';
 
@@ -63,11 +62,6 @@ const App: FC = () => {
           exact
           path={constants.PAGE_PATH.AUTH_CALLBACK_KAKAO}
           component={CallbackKakao}
-        />
-        <Route
-          exact
-          path={constants.PAGE_PATH.AUTH_CALLBACK_GUEST}
-          component={CallbackGuest}
         />
         <PrivateRoute
           path={[

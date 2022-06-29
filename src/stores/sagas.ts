@@ -14,6 +14,7 @@ import {
   updateUserApi,
   deleteHomesApi,
   fetchHomeTasksAlertApi,
+  loginGuestApi,
 } from '../api';
 import { fetchRefrigeratorSummaryApi } from '../api/refrigerator';
 import store, { RootState } from 'stores';
@@ -31,6 +32,7 @@ export default function* rootSaga() {
     watchGoTaskRegisterPage(),
     watchFetchMainHomeInfo(),
     watchLogin(),
+    watchLoginGuest(),
     watchLogout(),
     watchInitialize(),
     watchGoUrl(),
@@ -233,6 +235,33 @@ function* login(action) {
     yield put(actions.initialize());
   } catch (error) {
     console.error(error);
+  }
+}
+
+export function* watchLoginGuest() {
+  yield takeLatest(actions.loginGuest, loginGuest);
+}
+
+function* loginGuest() {
+  const history = yield getContext('history');
+
+  try {
+    const response = yield call(loginGuestApi);
+    const { access_token, name, lastHomeId, imgUrl, userId } = response.data;
+
+    yield put(
+      actions.login({
+        token: access_token,
+        name,
+        lastHomeId,
+        imgUrl,
+        userId,
+      })
+    );
+    history.push(constants.PAGE_PATH.MYPAGE);
+  } catch (error) {
+    console.error(error);
+    history.push(constants.PAGE_PATH.LOGIN);
   }
 }
 
