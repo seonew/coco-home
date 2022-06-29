@@ -1,5 +1,5 @@
 import instance from '../utils/axiosInstance';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
   Home,
   HomeMember,
@@ -157,4 +157,9 @@ export const updateUserApi = (
   return instance.patch(`/api/users`, {
     homeId,
   });
+};
+
+export const loginGuestApi = () => {
+  const AUTH_URI = process.env.REACT_APP_GUEST_AUTH_URI || '';
+  return axios.post(AUTH_URI);
 };

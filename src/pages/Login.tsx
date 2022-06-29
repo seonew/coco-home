@@ -1,3 +1,7 @@
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { actions } from 'stores/slice';
+
 import styled from 'styled-components';
 import githubIcon from '../assets/github-icon.svg';
 import kakaoTalkIcon from '../assets/kakaotalk-icon.png';
@@ -95,7 +99,6 @@ const Login = () => {
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
   const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-  const guestUrl = process.env.REACT_APP_GUEST_REDIRECT_URI;
   const url =
     'https://github.com/login/oauth/authorize?client_id=' +
     CLIENT_ID +
@@ -107,6 +110,11 @@ const Login = () => {
     KAKAO_CLIENT_ID +
     '&redirect_uri=' +
     KAKAO_REDIRECT_URI;
+
+  const dispatch = useDispatch();
+  const handleClickGuest = useCallback(() => {
+    dispatch(actions.loginGuest());
+  }, [dispatch]);
 
   return (
     <Root>
@@ -132,7 +140,7 @@ const Login = () => {
           <GuideText>서비스 이용을 위해 로그인 해주세요.</GuideText>
         </SocialLoginContainer>
         <TextButtonContainer>
-          <ButtonToGuest href={guestUrl}>
+          <ButtonToGuest onClick={handleClickGuest}>
             {`로그인없이 비회원으로 들어가기 >`}
           </ButtonToGuest>
         </TextButtonContainer>
