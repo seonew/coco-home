@@ -9,6 +9,7 @@ import {
   HomeListItem,
   HomeTasksByDate,
   EmptyPayload,
+  User,
 } from 'types';
 
 // HOMES
@@ -151,6 +152,10 @@ export const fetchHomeTaskStatisticsTargetApi = (
 };
 
 // USER
+export const fetchUserInfoApi = (): Promise<AxiosResponse<User>> => {
+  return instance.get(`api/users`);
+};
+
 export const updateUserApi = (
   homeId: string
 ): Promise<AxiosResponse<string>> => {

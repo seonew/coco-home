@@ -110,6 +110,12 @@ const appSlice = createSlice({
       state.init = action.payload;
     },
 
+    fetchUserInfo: (state) => {},
+    fetchUserInfoSuccess: (state, action: PayloadAction<User>) => {
+      state.user.name = action.payload.name;
+      state.user.userId = action.payload.userId;
+      state.user.imgUrl = action.payload.imgUrl;
+    },
     login: (state, action) => {},
     loginSuccess: (state, action) => {
       state.token = action.payload.token;

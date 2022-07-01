@@ -15,12 +15,13 @@ import {
   deleteHomesApi,
   fetchHomeTasksAlertApi,
   loginGuestApi,
+  fetchUserInfoApi,
 } from '../api';
 import { fetchRefrigeratorSummaryApi } from '../api/refrigerator';
 import store, { RootState } from 'stores';
 import { AxiosResponse } from 'axios';
 import constants from 'constants/index';
-import { Home, HomeAlert } from 'types';
+import { Home, HomeAlert, User } from 'types';
 
 export default function* rootSaga() {
   yield all([
@@ -36,6 +37,7 @@ export default function* rootSaga() {
     watchLogout(),
     watchInitialize(),
     watchGoUrl(),
+    watchFetchUserInfo(),
   ]);
 }
 
@@ -216,12 +218,28 @@ function* fetchCurrentHomeInfo(action) {
   }
 }
 
+export function* watchFetchUserInfo() {
+  yield takeLatest(actions.fetchUserInfo, fetchUserInfo);
+}
+
+function* fetchUserInfo(action) {
+  try {
+    const response = yield call(fetchUserInfoApi);
+    const result: User = response.data;
+
+    yield put(actions.fetchUserInfoSuccess(result));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export function* watchLogin() {
   yield takeLatest(actions.login, login);
 }
 
 function* login(action) {
   const { token, name, lastHomeId, imgUrl, userId } = action.payload;
+  console.log(action.payload);
 
   try {
     localStorage.setItem('access_token', token);

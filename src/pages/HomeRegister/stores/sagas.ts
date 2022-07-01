@@ -12,7 +12,7 @@ import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { insertHomesApi, updateHomesApi, fetchMemberUsersApi } from 'api';
 import constants from 'constants/index';
-import { Home, HomeMember } from 'types';
+import { Home, HomeMember, User } from 'types';
 
 export default function* rootSaga() {
   yield all([
@@ -35,11 +35,23 @@ function* initialize() {
     const edited: boolean = yield select(
       (state: RootState) => state.mypage.edited
     );
+
+    yield put(appActions.fetchUserInfo());
+    yield take(appActions.fetchUserInfoSuccess);
+
+    const user: User = yield select((state: RootState) => state.app.user);
     let nextHome: Home = {
       id: '',
       displayName: '',
       spaces: constants.HOME.SPACES,
-      members: [],
+      members: [
+        {
+          name: user.name,
+          type: 'owner',
+          userId: user.userId,
+          imgUrl: user.imgUrl,
+        },
+      ],
       works: constants.HOME.WORKS,
       items: constants.HOME.ITEMS,
     };
