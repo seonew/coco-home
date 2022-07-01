@@ -20,11 +20,18 @@ const Callback = ({ history, location }) => {
           code,
         });
 
-        const token = response.data.access_token;
-        const name = response.data.name;
-        const lastHomeId = response.data.lastHomeId;
+        const { access_token, name, lastHomeId, imgUrl, userId } =
+          response.data;
 
-        dispatch(actions.login({ token, name, lastHomeId }));
+        dispatch(
+          actions.login({
+            token: access_token,
+            name,
+            lastHomeId,
+            imgUrl,
+            userId,
+          })
+        );
         history.push(constants.PAGE_PATH.MYPAGE);
       } catch (error) {
         history.push(constants.PAGE_PATH.LOGIN);
