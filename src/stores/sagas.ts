@@ -6,6 +6,7 @@ import {
   select,
   getContext,
   delay,
+  take,
 } from '@redux-saga/core/effects';
 import { actions } from './slice';
 import { actions as myHomeListActions } from '../pages/Mypage/stores/slice';
@@ -239,7 +240,6 @@ export function* watchLogin() {
 
 function* login(action) {
   const { token, name, lastHomeId, imgUrl, userId } = action.payload;
-  console.log(action.payload);
 
   try {
     localStorage.setItem('access_token', token);
@@ -251,6 +251,10 @@ function* login(action) {
     );
 
     yield put(actions.initialize());
+    yield take(actions.initializeSuccess);
+
+    const history = yield getContext('history');
+    history.push(constants.PAGE_PATH.MYPAGE);
   } catch (error) {
     console.error(error);
   }
@@ -276,7 +280,6 @@ function* loginGuest() {
         userId,
       })
     );
-    history.push(constants.PAGE_PATH.MYPAGE);
   } catch (error) {
     console.error(error);
     history.push(constants.PAGE_PATH.LOGIN);
