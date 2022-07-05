@@ -82,7 +82,11 @@ const TaskRegister = () => {
     },
   });
   const [showCycle, setShowCycle] = useState(
-    selectedItem?.cycle.unit === '' ? false : true
+    selectedItem?.cycle.unit === undefined
+      ? false
+      : selectedItem?.cycle.unit === ''
+      ? false
+      : true
   );
 
   const units = getUnitArray();
