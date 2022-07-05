@@ -1,7 +1,9 @@
 import { memo, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './stores/slice';
 import { actions as taskRegisterActions } from '../TaskRegister/stores/slice';
+import { actions as appActions } from 'stores/slice';
+import { RootState } from 'stores';
 import { HomeTask } from 'types';
 import { getUnitCodeToString } from 'utils/common';
 
@@ -67,10 +69,19 @@ const useStyles = makeStyles({
 const ListItem = ({ item }: ListItemProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const open = useSelector<RootState, boolean>(
+    (state) => state.app.confirmModal.open
+  );
 
   const handleClickDeleteItem = useCallback(() => {
-    dispatch(actions.deleteHomeTasks(item));
-  }, [dispatch, item]);
+    dispatch(
+      appActions.setConfirmModal({
+        open: !open,
+        title: '선택한 집안일을 삭제하시겠습니까?',
+        confirmAction: actions.deleteHomeTasks(item),
+      })
+    );
+  }, [dispatch, item, open]);
 
   const handleClickEditItem = useCallback(() => {
     dispatch(taskRegisterActions.goRegisterPageToEdit(item));
