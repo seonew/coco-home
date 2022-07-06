@@ -52,11 +52,18 @@ const List = ({ items, children }: ListProps) => {
             </Container>
           </Layout>
         </>
-      ) : (
+      ) : items === null ? (
+        <Empty
+          text="등록된 데이터가 없어요 ㅠ.ㅠ"
+          description="아래 버튼을 눌러 추가해 주세요 :)"
+        />
+      ) : items.length === 0 ? (
         <Empty
           text="조회된 데이터가 없어요 ㅠ.ㅠ"
           description="아래 버튼을 눌러 추가해 주세요 :)"
         />
+      ) : (
+        ''
       )}
     </Root>
   );
