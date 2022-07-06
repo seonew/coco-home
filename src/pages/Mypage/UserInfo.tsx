@@ -85,20 +85,16 @@ const ButtonToLogout = styled.button`
 
 const UserInfo = () => {
   const user = useSelector<RootState, User>((state) => state.app.user);
-  const open = useSelector<RootState, boolean>(
-    (state) => state.app.confirmModal.open
-  );
   const dispatch = useDispatch();
 
   const handleClickItem = useCallback(() => {
     dispatch(
-      appActions.setConfirmModal({
-        open: !open,
+      appActions.showConfirmModal({
         title: '로그아웃 하시겠습니까?',
         confirmAction: appActions.logout(),
       })
     );
-  }, [dispatch, open]);
+  }, [dispatch]);
 
   return (
     <>

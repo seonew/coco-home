@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Home, HomeAlert, User, Alert, Confirm } from 'types';
+import {
+  Home,
+  HomeAlert,
+  User,
+  Alert,
+  Confirm,
+  ShowConfirmPayload,
+} from 'types';
 import constants from 'constants/index';
 
 export interface State {
@@ -97,11 +104,21 @@ const appSlice = createSlice({
       state.alertModal.open = action.payload.open;
       state.alertModal.text = action.payload.text;
     },
+    resetConfirmModal: (state) => {
+      state.confirmModal.title = '';
+      state.confirmModal.text = '';
+      state.confirmModal.confirmAction = null;
+    },
     setConfirmModal: (state, action: PayloadAction<Confirm>) => {
-      state.confirmModal.open = action.payload.open;
-      state.confirmModal.title = action.payload.title;
-      state.confirmModal.confirmAction = action.payload.confirmAction;
-      state.confirmModal.text = action.payload.text;
+      const { open, title, text, confirmAction } = action.payload;
+      state.confirmModal.title = title;
+      state.confirmModal.text = text;
+      state.confirmModal.confirmAction = confirmAction;
+      state.confirmModal.open = open;
+    },
+    showConfirmModal: (state, action: PayloadAction<ShowConfirmPayload>) => {},
+    hideConfirmModal: (state) => {
+      state.confirmModal.open = false;
     },
     setDialogContent: (state, action: PayloadAction<string>) => {
       state.dialogContent = action.payload;

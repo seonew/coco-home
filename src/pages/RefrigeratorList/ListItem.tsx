@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { actions } from './stores/slice';
+import { actions as appActions } from 'stores/slice';
 import { RefrigeratorFood } from 'types';
 
 import styled from 'styled-components';
@@ -77,7 +78,12 @@ const ListItem = ({ item }: ListItemProps) => {
   const dispatch = useDispatch();
 
   const handleClickDeleteItem = useCallback(() => {
-    dispatch(actions.deleteRefrigeratorFoods(item));
+    dispatch(
+      appActions.showConfirmModal({
+        title: '선택한 음식을 삭제하시겠습니까?',
+        confirmAction: actions.deleteRefrigeratorFoods(item),
+      })
+    );
   }, [dispatch, item]);
 
   const handleClickEditItem = useCallback(() => {

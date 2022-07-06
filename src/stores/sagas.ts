@@ -39,6 +39,7 @@ export default function* rootSaga() {
     watchInitialize(),
     watchGoUrl(),
     watchFetchUserInfo(),
+    watchShowConfirmModal(),
   ]);
 }
 
@@ -229,6 +230,23 @@ function* fetchUserInfo(action) {
     const result: User = response.data;
 
     yield put(actions.fetchUserInfoSuccess(result));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function* watchShowConfirmModal() {
+  yield takeLatest(actions.showConfirmModal, showConfirmModal);
+}
+
+function* showConfirmModal(action) {
+  const { title, text, confirmAction } = action.payload;
+
+  try {
+    yield put(actions.resetConfirmModal());
+    yield put(
+      actions.setConfirmModal({ open: true, title, text, confirmAction })
+    );
   } catch (error) {
     console.error(error);
   }

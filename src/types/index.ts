@@ -78,4 +78,6 @@ export interface Confirm extends Modal {
   confirmAction: PayloadAction | null;
 }
 
+export type ShowConfirmPayload = Omit<Confirm, 'open'>;
+
 export type EmptyPayload = {} | null | undefined;

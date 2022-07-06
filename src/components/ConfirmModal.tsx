@@ -18,15 +18,14 @@ const ConfirmModal = () => {
     (state) => state.app.confirmModal
   );
 
+  const handleClose = useCallback(() => {
+    dispatch(actions.hideConfirmModal());
+  }, [dispatch]);
+
   const handleConfirm = useCallback(() => {
     dispatch(confirmAction);
-  }, [confirmAction, dispatch]);
-
-  const handleClose = useCallback(() => {
-    dispatch(
-      actions.setConfirmModal({ open: false, title: '', confirmAction: null })
-    );
-  }, [dispatch]);
+    handleClose();
+  }, [confirmAction, dispatch, handleClose]);
 
   return (
     <>

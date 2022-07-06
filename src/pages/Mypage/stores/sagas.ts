@@ -28,12 +28,9 @@ export function* watchDeleteHome() {
 }
 
 function* deleteHome(action) {
-  const { homeId, open } = action.payload;
+  const { homeId } = action.payload;
 
   try {
-    yield put(
-      appActions.setConfirmModal({ open, title: '', confirmAction: null })
-    );
     yield put(appActions.deleteHomeId(homeId));
   } catch (error) {
     console.error(error);
