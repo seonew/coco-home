@@ -38,7 +38,8 @@ const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
   return (
     <Root>
       <Input
-        type="text"
+        type="number"
+        pattern="\d*"
         value={text ?? item}
         onChange={handleChangeTextField}
       />

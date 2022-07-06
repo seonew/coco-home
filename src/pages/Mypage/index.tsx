@@ -102,10 +102,6 @@ const Mypage = () => {
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
   );
-  const open = useSelector<RootState, boolean>(
-    (state) => state.app.confirmModal.open
-  );
-
   const loading = useSelector<RootState, boolean>((state) => state.app.loading);
   const init = useSelector<RootState, boolean>((state) => state.mypage.init);
 
@@ -119,17 +115,15 @@ const Mypage = () => {
   const handleSetHomeIdAndChangeModal = useCallback(
     (homeId) => () => {
       dispatch(
-        appActions.setConfirmModal({
-          open: !open,
+        appActions.showConfirmModal({
           title: '선택한 홈을 삭제하시겠습니까?',
           confirmAction: actions.deleteHome({
             homeId: homeId,
-            open: false,
           }),
         })
       );
     },
-    [dispatch, open]
+    [dispatch]
   );
 
   const handleClickHomeName = useCallback(

@@ -32,7 +32,6 @@ const Callback = ({ history, location }) => {
             userId,
           })
         );
-        history.push(constants.PAGE_PATH.MYPAGE);
       } catch (error) {
         history.push(constants.PAGE_PATH.LOGIN);
       }

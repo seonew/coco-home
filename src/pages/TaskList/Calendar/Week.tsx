@@ -1,6 +1,7 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
 import { HomeTask } from 'types';
+import Day from './Day';
 
 interface DayInfo {
   name: Array<string>;
@@ -9,12 +10,11 @@ interface DayInfo {
 interface WeekProps {
   days: string[];
   items: Record<string, HomeTask[]>;
-  onDisplayItemInfo: (day: number) => void;
 }
 
 const Content = styled.div`
   position: absolute;
-  top: 24px;
+  top: 28px;
 
   display: inline-block;
   min-width: 2px;
@@ -29,14 +29,7 @@ const Content = styled.div`
   vertical-align: top;
 `;
 
-const Week = ({ days, items, onDisplayItemInfo }: WeekProps) => {
-  const handleDisplayItemInfo = useCallback(
-    (selectedDay) => () => {
-      onDisplayItemInfo(selectedDay);
-    },
-    [onDisplayItemInfo]
-  );
-
+const Week = ({ days, items }: WeekProps) => {
   return (
     <div className="calendar-table__row">
       {days.map((day, index) => {
@@ -57,17 +50,11 @@ const Week = ({ days, items, onDisplayItemInfo }: WeekProps) => {
         return (
           <div className="calendar-table__col" key={index}>
             {dayInfo.name.length > 0 ? (
-              <div
-                className="calendar-table__item"
-                onClick={handleDisplayItemInfo(day)}
-              >
-                <div>{day}</div>
+              <Day day={day}>
                 <Content />
-              </div>
+              </Day>
             ) : (
-              <div className="calendar-table__item">
-                <div>{day}</div>
-              </div>
+              <Day day={day} />
             )}
           </div>
         );

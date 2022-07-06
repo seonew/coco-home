@@ -1,6 +1,5 @@
 import { useCallback, memo, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { actions } from '../stores/slice';
 
 import Header from './Header';
@@ -16,19 +15,9 @@ interface CalendarProps {
 
 const Calendar = ({ year, month, items }: CalendarProps) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const setDate = new Date(year, month - 1, 1);
   const firstDay = setDate.getDay();
   const lastDate = new Date(year, month, 0).getDate();
-
-  const handleDisplayItemInfo = useCallback(
-    (selectedDay) => {
-      history.push(
-        '/home/task/detail/' + year + '/' + month + '/' + selectedDay
-      );
-    },
-    [history, month, year]
-  );
 
   const dayGroups = useMemo(() => {
     return calculateDayGroups(firstDay, lastDate);
@@ -66,14 +55,7 @@ const Calendar = ({ year, month, items }: CalendarProps) => {
           </div>
           <div className="calendar-table__body">
             {dayGroups.map((week, index) => {
-              return (
-                <Week
-                  key={index}
-                  days={week}
-                  items={list[index]}
-                  onDisplayItemInfo={handleDisplayItemInfo}
-                />
-              );
+              return <Week key={index} days={week} items={list[index]} />;
             })}
           </div>
         </div>

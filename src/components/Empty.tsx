@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface EmptyProps {
   text: string;
   description?: string;
+  children?: ReactNode;
 }
 
 const Root = styled.div`
@@ -14,6 +15,7 @@ const Root = styled.div`
   flex-direction: column;
   background-color: #fff;
   text-align: center;
+  align-items: center;
 `;
 
 const Text = styled.div`
@@ -31,11 +33,12 @@ const Description = styled.div`
   padding-top: 12px;
 `;
 
-const Empty = ({ text, description }: EmptyProps) => {
+const Empty = ({ text, description, children }: EmptyProps) => {
   return (
     <Root>
       <Text>{text}</Text>
       <Description>{description}</Description>
+      {children}
     </Root>
   );
 };

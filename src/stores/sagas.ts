@@ -6,6 +6,7 @@ import {
   select,
   getContext,
   delay,
+  take,
 } from '@redux-saga/core/effects';
 import { actions } from './slice';
 import { actions as myHomeListActions } from '../pages/Mypage/stores/slice';
@@ -38,6 +39,8 @@ export default function* rootSaga() {
     watchInitialize(),
     watchGoUrl(),
     watchFetchUserInfo(),
+    watchShowConfirmModal(),
+    watchShowAlertModal(),
   ]);
 }
 
@@ -233,13 +236,44 @@ function* fetchUserInfo(action) {
   }
 }
 
+export function* watchShowConfirmModal() {
+  yield takeLatest(actions.showConfirmModal, showConfirmModal);
+}
+
+function* showConfirmModal(action) {
+  const { title, text, confirmAction } = action.payload;
+
+  try {
+    yield put(actions.resetConfirmModal());
+    yield put(
+      actions.setConfirmModal({ open: true, title, text, confirmAction })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function* watchShowAlertModal() {
+  yield takeLatest(actions.showAlertModal, showAlertModal);
+}
+
+function* showAlertModal(action) {
+  const { text } = action.payload;
+
+  try {
+    yield put(actions.resetAlertModal());
+    yield put(actions.setAlertModal({ open: true, text }));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export function* watchLogin() {
   yield takeLatest(actions.login, login);
 }
 
 function* login(action) {
   const { token, name, lastHomeId, imgUrl, userId } = action.payload;
-  console.log(action.payload);
 
   try {
     localStorage.setItem('access_token', token);
@@ -251,6 +285,10 @@ function* login(action) {
     );
 
     yield put(actions.initialize());
+    yield take(actions.initializeSuccess);
+
+    const history = yield getContext('history');
+    history.push(constants.PAGE_PATH.MYPAGE);
   } catch (error) {
     console.error(error);
   }
@@ -276,7 +314,6 @@ function* loginGuest() {
         userId,
       })
     );
-    history.push(constants.PAGE_PATH.MYPAGE);
   } catch (error) {
     console.error(error);
     history.push(constants.PAGE_PATH.LOGIN);

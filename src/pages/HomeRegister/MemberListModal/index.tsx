@@ -27,9 +27,6 @@ const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
   const members = useSelector<RootState, HomeMember[]>(
     (state) => state.homeRegister.nextHome.members
   );
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
   const [nextMembers, setNextMembers] = useState<HomeMember[]>([]);
 
   const handleClose = useCallback(() => {
@@ -38,9 +35,9 @@ const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
 
   const handleClickItem = useCallback(() => {

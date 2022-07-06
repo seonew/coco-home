@@ -51,9 +51,6 @@ const HomeRegister = () => {
   const openRegisterModal = useSelector<RootState, boolean>(
     (state) => state.homeRegister.registerModal.open
   );
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
   const dispatch = useDispatch();
 
   const handleClickAddButton = useCallback(
@@ -95,9 +92,9 @@ const HomeRegister = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
 
   const validate = useCallback(() => {
