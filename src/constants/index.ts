@@ -76,7 +76,7 @@ export const pageNameByPathName = {
   [constants.PAGE_PATH.HOME_TASK_REGISTER]: '집안일 등록',
   [constants.PAGE_PATH.HOME_TASK_STATISTICS]: '통계',
   [constants.PAGE_PATH.HOME_REGISTER]: '우리집 등록',
-  [constants.PAGE_PATH.MYPAGE]: '우리집들',
+  [constants.PAGE_PATH.MYPAGE]: '마이페이지',
   [constants.PAGE_PATH.MAIN]: '코코홈',
 };
 
