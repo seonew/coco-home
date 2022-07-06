@@ -58,9 +58,6 @@ const TaskRegister = () => {
   const openSelectCycleModal = useSelector<RootState, boolean>(
     (state) => state.taskRegister.selectCycleModal.open
   );
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
   const members = currentHome['members'];
   const works = currentHome['works'];
   const spaces = currentHome['spaces'];
@@ -151,9 +148,9 @@ const TaskRegister = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
 
   const validate = useCallback(() => {

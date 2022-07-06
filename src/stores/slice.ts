@@ -6,6 +6,7 @@ import {
   Alert,
   Confirm,
   ShowConfirmPayload,
+  ShowAlertPayload,
 } from 'types';
 import constants from 'constants/index';
 
@@ -100,9 +101,17 @@ const appSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    resetAlertModal: (state) => {
+      state.alertModal.text = '';
+    },
     setAlertModal: (state, action: PayloadAction<Alert>) => {
-      state.alertModal.open = action.payload.open;
-      state.alertModal.text = action.payload.text;
+      const { open, text } = action.payload;
+      state.alertModal.open = open;
+      state.alertModal.text = text;
+    },
+    showAlertModal: (state, action: PayloadAction<ShowAlertPayload>) => {},
+    hideAlertModal: (state) => {
+      state.alertModal.open = false;
     },
     resetConfirmModal: (state) => {
       state.confirmModal.title = '';

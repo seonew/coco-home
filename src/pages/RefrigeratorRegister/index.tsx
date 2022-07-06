@@ -37,10 +37,6 @@ const RegisterRefrigerator = () => {
   const showCalendar = useSelector<RootState, boolean>(
     (state) => state.refrigeratorRegister.showCalendar
   );
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
-
   const dispatch = useDispatch();
 
   const handleChangeExpirationDay = useCallback((current) => {
@@ -81,9 +77,9 @@ const RegisterRefrigerator = () => {
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
 
   const validate = useCallback(

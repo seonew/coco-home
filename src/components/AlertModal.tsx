@@ -12,7 +12,7 @@ const AlertModal = () => {
   );
 
   const handleClose = useCallback(() => {
-    dispatch(actions.setAlertModal({ open: false, text: '' }));
+    dispatch(actions.hideAlertModal());
   }, [dispatch]);
 
   return (

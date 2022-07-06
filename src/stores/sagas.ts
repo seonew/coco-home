@@ -40,6 +40,7 @@ export default function* rootSaga() {
     watchGoUrl(),
     watchFetchUserInfo(),
     watchShowConfirmModal(),
+    watchShowAlertModal(),
   ]);
 }
 
@@ -247,6 +248,21 @@ function* showConfirmModal(action) {
     yield put(
       actions.setConfirmModal({ open: true, title, text, confirmAction })
     );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function* watchShowAlertModal() {
+  yield takeLatest(actions.showAlertModal, showAlertModal);
+}
+
+function* showAlertModal(action) {
+  const { text } = action.payload;
+
+  try {
+    yield put(actions.resetAlertModal());
+    yield put(actions.setAlertModal({ open: true, text }));
   } catch (error) {
     console.error(error);
   }

@@ -23,15 +23,12 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
   const currentType = useSelector<RootState, string>(
     (state) => state.homeRegister.currentType
   );
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
   const handleClose = useCallback(() => {
     setText('');

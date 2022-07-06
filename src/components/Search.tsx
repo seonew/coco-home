@@ -3,8 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import { Paper, IconButton, InputBase, Divider } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'stores';
+import { useDispatch } from 'react-redux';
 import { actions as appActions } from 'stores/slice';
 
 interface SearchProps {
@@ -20,15 +19,12 @@ const Root = styled.div`
 const Search = ({ placeholder, onClickItem }: SearchProps) => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
-  const openAlertModal = useSelector<RootState, boolean>(
-    (state) => state.app.alertModal.open
-  );
 
   const showAlertModal = useCallback(
     (text) => {
-      dispatch(appActions.setAlertModal({ open: !openAlertModal, text }));
+      dispatch(appActions.showAlertModal({ text }));
     },
-    [dispatch, openAlertModal]
+    [dispatch]
   );
 
   const handleChangeTextField = useCallback((e) => {
