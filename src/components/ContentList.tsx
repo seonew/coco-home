@@ -9,7 +9,7 @@ interface ContentListProps {
 
 const List = styled.ul`
   list-style: none;
-  margin-top: 20px;
+  margin: 0;
   padding: 4px 26px;
   border-radius: 22px;
   border: 0.5px solid #dcdcde;

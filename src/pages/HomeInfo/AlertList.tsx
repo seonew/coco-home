@@ -9,7 +9,15 @@ interface AlertListProps {
   onClick?: (item: HomeAlert) => void;
 }
 
-const Root = styled.div``;
+const Root = styled.div`
+  margin: 14px 0;
+`;
+
+const Title = styled.h3`
+  margin: 0;
+  padding: 14px 0 10px;
+  font-size: 16px;
+`;
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -32,7 +40,7 @@ const AlertList = ({ items, onClick }: AlertListProps) => {
 
   const renderAlertItem = useCallback(
     (item) => {
-      let dateText = `다음 안내까지 ${item.dday} 일 남았습니다.`;
+      let dateText = `다음 안내까지 ${item.dday}일 남았습니다.`;
       if (item.dday === 0) {
         dateText = `오늘은 ${item.work} 하는 날입니다.`;
       }
@@ -62,7 +70,9 @@ const AlertList = ({ items, onClick }: AlertListProps) => {
 
   return (
     <Root>
-      <p>알림 리스트</p>
+      <Title>
+        <span>알림 리스트</span>
+      </Title>
       <Container>
         {items !== null && (items?.length as number) > 0 ? (
           <ContentList items={items} render={renderAlertItem} keyProp="id" />

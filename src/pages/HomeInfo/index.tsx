@@ -35,6 +35,10 @@ const Container = styled.div`
   }
 `;
 
+const ContentContainer = styled.div`
+  margin: 10px 0;
+`;
+
 const UserInfo = styled.div`
   position: relative;
   padding-left: 34px;
@@ -108,7 +112,7 @@ const HomeInfo = () => {
 
   const handleClickAlertItem = useCallback(
     (item) => {
-      dispatch(taskRegisterActions.goRegisterPageToEdit(item));
+      dispatch(taskRegisterActions.goRegisterPageToRepeat(item));
     },
     [dispatch]
   );
@@ -150,11 +154,13 @@ const HomeInfo = () => {
             <strong>{currentHome?.displayName}</strong>
           </RoundedRowItem>
 
-          <ContentList
-            items={members}
-            render={renderUserInfo}
-            keyProp="userId"
-          />
+          <ContentContainer>
+            <ContentList
+              items={members}
+              render={renderUserInfo}
+              keyProp="userId"
+            />
+          </ContentContainer>
 
           {refrigeratorSummary.length > 0 ? (
             <RoundedRowItem>
