@@ -11,6 +11,7 @@ export default function* rootSaga() {
     watchInsertTaskRegister(),
     watchUpdateTaskRegister(),
     watchGoRegisterPageToCreate(),
+    watchGoRegisterPageToRepeat(),
     watchGoRegisterPageToEdit(),
   ]);
 }
@@ -83,19 +84,7 @@ function* goRegisterPageToEdit(action) {
     const homeId: string = yield select(
       (state: RootState) => state.app.currentHome.id
     );
-    const result: HomeTask = {
-      id: item.id,
-      homeId: homeId,
-      member: { name: item.member.name, id: item.member.id },
-      space: item.space,
-      targetItem: item.targetItem,
-      work: item.work,
-      date: item.date,
-      cycle: {
-        value: item.cycle.value,
-        unit: item.cycle.unit,
-      },
-    };
+    const result: HomeTask = getSelectedItem({ homeId, item, isRepeat: false });
     yield put(actions.setSelectedItem(result));
     yield put(actions.setEdit(true));
     yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_REGISTER));
@@ -103,3 +92,41 @@ function* goRegisterPageToEdit(action) {
     console.error(error);
   }
 }
+
+export function* watchGoRegisterPageToRepeat() {
+  yield takeLatest(actions.goRegisterPageToRepeat, goRegisterPageToRepeat);
+}
+
+function* goRegisterPageToRepeat(action) {
+  const item = action.payload;
+
+  try {
+    const homeId: string = yield select(
+      (state: RootState) => state.app.currentHome.id
+    );
+    const result: HomeTask = getSelectedItem({ homeId, item, isRepeat: true });
+    yield put(actions.setSelectedItem(result));
+    yield put(actions.setEdit(false));
+    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_REGISTER));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const getSelectedItem = ({ homeId, item, isRepeat }) => {
+  const result: HomeTask = {
+    id: item.id,
+    homeId: homeId,
+    member: { name: item.member.name, id: item.member.id },
+    space: item.space,
+    targetItem: item.targetItem,
+    work: item.work,
+    date: isRepeat ? new Date() : item.date,
+    cycle: {
+      value: item.cycle.value,
+      unit: item.cycle.unit,
+    },
+  };
+
+  return result;
+};

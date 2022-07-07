@@ -25,6 +25,7 @@ const taskRegisterSlice = createSlice({
     updateTaskRegisterFailed: (state, action) => {},
     goRegisterPageToCreate: (state) => {},
     goRegisterPageToEdit: (state, action) => {},
+    goRegisterPageToRepeat: (state, action) => {},
     setSelectedItem: (state, action: PayloadAction<HomeTask | null>) => {
       state.selectedItem = action.payload;
     },
