@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -42,10 +42,11 @@ const Layout = styled.div`
   overflow-y: auto;
 `;
 
-const App: FC = () => {
+const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(actions.loginService());
     dispatch(actions.initialize());
   }, [dispatch]);
 

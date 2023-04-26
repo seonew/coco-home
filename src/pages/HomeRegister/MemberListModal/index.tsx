@@ -1,4 +1,4 @@
-import { FC, useCallback, memo, useState } from 'react';
+import { useCallback, memo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'stores';
 import { actions } from '../stores/slice';
@@ -19,7 +19,7 @@ interface MemberListModalProps {
   open: boolean;
 }
 
-const MemberListModal: FC<MemberListModalProps> = ({ open }) => {
+const MemberListModal = ({ open }: MemberListModalProps) => {
   const dispatch = useDispatch();
   const searchMembers = useSelector<RootState, HomeMember[] | null>(
     (state) => state.homeRegister.searchMembers
