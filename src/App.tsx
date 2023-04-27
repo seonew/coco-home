@@ -46,7 +46,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.loginService());
     dispatch(actions.initialize());
   }, [dispatch]);
 
