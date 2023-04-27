@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import {
   List,
   ListItem,
@@ -14,7 +14,7 @@ interface MemberListProps {
   onClickItem: (item: HomeMember, checked: boolean) => void;
 }
 
-const MemberList: FC<MemberListProps> = ({ members, onClickItem }) => {
+const MemberList = ({ members, onClickItem }: MemberListProps) => {
   const handleChangeItem = useCallback(
     (item) => (event) => {
       const checked = event.target.checked;
