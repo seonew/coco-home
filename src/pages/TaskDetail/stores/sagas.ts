@@ -10,7 +10,7 @@ import { AxiosResponse } from 'axios';
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { RootState } from 'stores';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import { fetchHomeTasksDetailApi, deleteHomeTasksApi } from 'api';
 import { HomeTask } from 'types';
 
@@ -30,7 +30,7 @@ function* deleteHomeTasks(action) {
     const result = response.data;
 
     yield put(actions.deleteHomeTasksSuccess(result));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_LIST));
   } catch (error) {
     yield put(actions.deleteHomeTasksFailed(error));
     console.error(error);

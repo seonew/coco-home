@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import constants from '../constants/index';
+import { PAGE_PATH } from '../constants/index';
 
 interface HeaderProps {
   text: string;
@@ -53,7 +53,7 @@ const Header = ({ text }: HeaderProps) => {
   };
 
   const handleClickMypage = useCallback(() => {
-    history.push(constants.PAGE_PATH.MYPAGE);
+    history.push(PAGE_PATH.MYPAGE);
   }, [history]);
 
   return (

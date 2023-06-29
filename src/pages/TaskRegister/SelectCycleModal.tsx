@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { actions } from './stores/slice';
-import constants from 'constants/index';
+import { CALENDAR } from 'constants/index';
 
 import styled from 'styled-components';
 import { Dialog, DialogContent } from '@material-ui/core';
@@ -48,7 +48,7 @@ const SelectCycleModal = ({
 }: SelectCycleModalProps) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const values = constants.CALENDAR.NUMBERS;
+  const values = CALENDAR.NUMBERS;
 
   const handleClose = useCallback(() => {
     dispatch(actions.setOpenSelectCycleModal(!open));

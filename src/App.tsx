@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { actions } from 'stores/slice';
 import { RootState } from './stores';
-import constants from './constants/index';
+import { PAGE_PATH } from './constants/index';
 
 import styled from 'styled-components';
 import Callback from './pages/AuthCallback';
@@ -52,84 +52,76 @@ const App = () => {
   return (
     <AppLayout>
       <Switch>
-        <Route exact path={constants.PAGE_PATH.LOGIN} component={Login} />
+        <Route exact path={PAGE_PATH.LOGIN} component={Login} />
+        <Route exact path={PAGE_PATH.AUTH_CALLBACK} component={Callback} />
         <Route
           exact
-          path={constants.PAGE_PATH.AUTH_CALLBACK}
-          component={Callback}
-        />
-        <Route
-          exact
-          path={constants.PAGE_PATH.AUTH_CALLBACK_KAKAO}
+          path={PAGE_PATH.AUTH_CALLBACK_KAKAO}
           component={CallbackKakao}
         />
         <PrivateRoute
           path={[
-            constants.PAGE_PATH.SEARCH_HOME_TASK_LIST,
-            constants.PAGE_PATH.REFRIGERATOR_REGISTER,
-            constants.PAGE_PATH.REFRIGERATOR_LIST,
-            constants.PAGE_PATH.HOME_TASK_LIST,
-            constants.PAGE_PATH.HOME_TASK_DETAIL,
-            constants.PAGE_PATH.HOME_TASK_REGISTER,
-            constants.PAGE_PATH.HOME_TASK_STATISTICS,
-            constants.PAGE_PATH.HOME_REGISTER,
-            constants.PAGE_PATH.MYPAGE,
-            constants.PAGE_PATH.MAIN,
+            PAGE_PATH.SEARCH_HOME_TASK_LIST,
+            PAGE_PATH.REFRIGERATOR_REGISTER,
+            PAGE_PATH.REFRIGERATOR_LIST,
+            PAGE_PATH.HOME_TASK_LIST,
+            PAGE_PATH.HOME_TASK_DETAIL,
+            PAGE_PATH.HOME_TASK_REGISTER,
+            PAGE_PATH.HOME_TASK_STATISTICS,
+            PAGE_PATH.HOME_REGISTER,
+            PAGE_PATH.MYPAGE,
+            PAGE_PATH.MAIN,
           ]}
         >
           <Layout>
             <Route
-              path={constants.PAGE_PATH.REFRIGERATOR_REGISTER}
+              path={PAGE_PATH.REFRIGERATOR_REGISTER}
               component={RefrigeratorRegister}
             />
             <Route
               exact
-              path={constants.PAGE_PATH.HOME_TASK_REGISTER}
+              path={PAGE_PATH.HOME_TASK_REGISTER}
               component={TaskRegister}
             />
             <Route
               exact
-              path={constants.PAGE_PATH.HOME_REGISTER}
+              path={PAGE_PATH.HOME_REGISTER}
               component={HomeRegister}
             />
             <Route
               exact
-              path={constants.PAGE_PATH.HOME_TASK_DETAIL}
+              path={PAGE_PATH.HOME_TASK_DETAIL}
               component={TaskDetail}
             />
             <Route
               exact
-              path={constants.PAGE_PATH.SEARCH_HOME_TASK_LIST}
+              path={PAGE_PATH.SEARCH_HOME_TASK_LIST}
               component={SearchList}
             />
             <Route
               exact
-              path={constants.PAGE_PATH.REFRIGERATOR_LIST}
+              path={PAGE_PATH.REFRIGERATOR_LIST}
               component={RefrigeratorList}
             />
+            <Route exact path={PAGE_PATH.HOME_TASK_LIST} component={TaskList} />
             <Route
               exact
-              path={constants.PAGE_PATH.HOME_TASK_LIST}
-              component={TaskList}
-            />
-            <Route
-              exact
-              path={constants.PAGE_PATH.HOME_TASK_STATISTICS}
+              path={PAGE_PATH.HOME_TASK_STATISTICS}
               component={TaskStatistics}
             />
-            <Route exact path={constants.PAGE_PATH.MYPAGE} component={Mypage} />
-            <Route exact path={constants.PAGE_PATH.MAIN} component={Home} />
+            <Route exact path={PAGE_PATH.MYPAGE} component={Mypage} />
+            <Route exact path={PAGE_PATH.MAIN} component={Home} />
           </Layout>
 
           <Route
             exact
             path={[
-              constants.PAGE_PATH.SEARCH_HOME_TASK_LIST,
-              constants.PAGE_PATH.REFRIGERATOR_LIST,
-              constants.PAGE_PATH.HOME_TASK_STATISTICS,
-              constants.PAGE_PATH.HOME_TASK_LIST,
-              constants.PAGE_PATH.MYPAGE,
-              constants.PAGE_PATH.MAIN,
+              PAGE_PATH.SEARCH_HOME_TASK_LIST,
+              PAGE_PATH.REFRIGERATOR_LIST,
+              PAGE_PATH.HOME_TASK_STATISTICS,
+              PAGE_PATH.HOME_TASK_LIST,
+              PAGE_PATH.MYPAGE,
+              PAGE_PATH.MAIN,
             ]}
           >
             <MenuBar />
@@ -153,7 +145,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={() =>
-        isAuthenticated ? children : <Redirect to={constants.PAGE_PATH.LOGIN} />
+        isAuthenticated ? children : <Redirect to={PAGE_PATH.LOGIN} />
       }
     />
   );

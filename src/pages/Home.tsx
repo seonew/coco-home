@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores';
 import { HomeListItem } from 'types';
-import constants, { pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, pageNameByPathName } from 'constants/index';
 
 import HomeInfo from './HomeInfo';
 import EmptyHome from './HomeInfo/EmptyHome';
@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <>
-      <Header text={pageNameByPathName[constants.PAGE_PATH.MAIN]} />
+      <Header text={pageNameByPathName[PAGE_PATH.MAIN]} />
       {homeId ? (
         <HomeInfo />
       ) : (homeList?.length as number) > 0 ? (

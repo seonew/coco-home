@@ -5,7 +5,7 @@ import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
 import { HomeTask } from 'types';
-import constants, { pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, pageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
 import List from './List';
@@ -41,7 +41,7 @@ const RegisterDetail = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[constants.PAGE_PATH.HOME_TASK_DETAIL]} />
+      <Header text={pageNameByPathName[PAGE_PATH.HOME_TASK_DETAIL]} />
       {loading ? <Skeleton /> : <List items={currentHomeTasks} />}
     </Root>
   );

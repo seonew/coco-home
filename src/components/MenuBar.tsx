@@ -7,7 +7,7 @@ import {
   faUtensilSpoon,
   faCalendarAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import constants from '../constants/index';
+import { PAGE_PATH } from '../constants/index';
 
 const Root = styled.div`
   display: flex;
@@ -55,19 +55,17 @@ const MenuBar = () => {
     <Root>
       <TabContainer>
         <Tab>
-          <Button onClick={handleClickItem(constants.PAGE_PATH.MAIN)}>
+          <Button onClick={handleClickItem(PAGE_PATH.MAIN)}>
             <FontAwesomeIcon icon={faHome} size="2x" />
           </Button>
         </Tab>
         <Tab>
-          <Button onClick={handleClickItem(constants.PAGE_PATH.HOME_TASK_LIST)}>
+          <Button onClick={handleClickItem(PAGE_PATH.HOME_TASK_LIST)}>
             <FontAwesomeIcon icon={faCalendarAlt} size="2x" />
           </Button>
         </Tab>
         <Tab>
-          <Button
-            onClick={handleClickItem(constants.PAGE_PATH.REFRIGERATOR_LIST)}
-          >
+          <Button onClick={handleClickItem(PAGE_PATH.REFRIGERATOR_LIST)}>
             <FontAwesomeIcon icon={faUtensilSpoon} size="2x" />
           </Button>
         </Tab>

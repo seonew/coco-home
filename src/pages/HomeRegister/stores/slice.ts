@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Home, HomeMember } from 'types';
-import constants from 'constants/index';
+import { HOME } from 'constants/index';
 
 export interface State {
   nextHome: Home;
@@ -14,10 +14,10 @@ const initialState: State = {
   nextHome: {
     id: '',
     displayName: '',
-    spaces: constants.HOME.SPACES,
+    spaces: HOME.SPACES,
     members: [{ name: '', type: '', userId: '', imgUrl: '' }],
-    works: constants.HOME.WORKS,
-    items: constants.HOME.ITEMS,
+    works: HOME.WORKS,
+    items: HOME.ITEMS,
   },
   currentType: '',
   searchMembers: null,
@@ -112,9 +112,9 @@ const homeRegisterSlice = createSlice({
       state.nextHome = {
         id: '',
         displayName: '',
-        spaces: constants.HOME.SPACES,
+        spaces: HOME.SPACES,
         members: [{ name: '', type: '', userId: '', imgUrl: '' }],
-        works: constants.HOME.WORKS,
+        works: HOME.WORKS,
         items: [],
       };
     },
@@ -124,10 +124,10 @@ const homeRegisterSlice = createSlice({
       state.nextHome = {
         id: '',
         displayName: '',
-        spaces: constants.HOME.SPACES,
+        spaces: HOME.SPACES,
         members: [{ name: '', type: '', userId: '', imgUrl: '' }],
-        works: constants.HOME.WORKS,
-        items: constants.HOME.ITEMS,
+        works: HOME.WORKS,
+        items: HOME.ITEMS,
       };
     },
     updateMyHomeRegisterFailed: (state, action) => {},

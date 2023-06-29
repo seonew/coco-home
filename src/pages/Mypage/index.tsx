@@ -15,7 +15,7 @@ import { faTrashAlt, faCog } from '@fortawesome/free-solid-svg-icons';
 import Skeleton from './Skeleton';
 import EmptyHome from '../HomeInfo/EmptyHome';
 import UserInfo from './UserInfo';
-import constants, { pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, pageNameByPathName } from 'constants/index';
 import Header from 'components/Header';
 
 const Root = styled.div`
@@ -146,7 +146,7 @@ const Mypage = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[constants.PAGE_PATH.MYPAGE]} />
+      <Header text={pageNameByPathName[PAGE_PATH.MYPAGE]} />
       {init && loading ? (
         <Skeleton />
       ) : (

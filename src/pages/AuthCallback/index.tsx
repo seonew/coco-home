@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../../stores/slice';
 import axios from 'axios';
 import qs from 'qs';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 
 const Callback = ({ history, location }) => {
   const AUTH_URI = process.env.REACT_APP_AUTH_URI || '';
@@ -33,7 +33,7 @@ const Callback = ({ history, location }) => {
           })
         );
       } catch (error) {
-        history.push(constants.PAGE_PATH.LOGIN);
+        history.push(PAGE_PATH.LOGIN);
       }
     }
 

@@ -1,16 +1,16 @@
-import constants from 'constants/index';
+import { CALENDAR } from 'constants/index';
 
 export const getUnitStringToCode = (item: string) => {
-  return constants.CALENDAR.UNITS[item];
+  return CALENDAR.UNITS[item];
 };
 
 export const getUnitCodeToString = (item: string) => {
-  const units = Object.keys(constants.CALENDAR.UNITS);
+  const units = Object.keys(CALENDAR.UNITS);
   return units[item];
 };
 
 export const getUnitArray = () => {
-  const units = Object.keys(constants.CALENDAR.UNITS);
+  const units = Object.keys(CALENDAR.UNITS);
   return units;
 };
 

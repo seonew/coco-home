@@ -9,7 +9,7 @@ import {
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { RootState } from 'stores';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import { fetchHomeTasksByDateApi, searchHomeTasksApi } from 'api';
 import { AxiosResponse } from 'axios';
 import { HomeTask, HomeTasksByDate } from 'types';
@@ -41,7 +41,7 @@ function* searchHomeTasks(action) {
     const result: HomeTask[] = response.data;
 
     yield put(actions.searchHomeTasksSuccess(result));
-    yield put(appActions.goUrl(constants.PAGE_PATH.SEARCH_HOME_TASK_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.SEARCH_HOME_TASK_LIST));
   } catch (error) {
     yield put(actions.searchHomeTasksFailed(error));
     console.error(error);

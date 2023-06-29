@@ -21,7 +21,7 @@ import {
 import { fetchRefrigeratorSummaryApi } from '../api/refrigerator';
 import store, { RootState } from 'stores';
 import { AxiosResponse } from 'axios';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import { Home, HomeAlert, User } from 'types';
 
 export default function* rootSaga() {
@@ -56,7 +56,7 @@ function* initialize() {
     const history = yield getContext('history');
     history.listen((location) => {
       const path = location.pathname;
-      if (path === constants.PAGE_PATH.LOGIN && isAuthenticated) {
+      if (path === PAGE_PATH.LOGIN && isAuthenticated) {
         store.dispatch(actions.logout());
       }
     });
@@ -101,7 +101,7 @@ export function* watchGoTaskRegisterPage() {
 
 function* goTaskRegisterPage(action) {
   try {
-    yield put(actions.goUrl(constants.PAGE_PATH.HOME_REGISTER));
+    yield put(actions.goUrl(PAGE_PATH.HOME_REGISTER));
   } catch (error) {
     console.error(error);
   }
@@ -288,7 +288,7 @@ function* login(action) {
     yield take(actions.initializeSuccess);
 
     const history = yield getContext('history');
-    history.push(constants.PAGE_PATH.MYPAGE);
+    history.push(PAGE_PATH.MYPAGE);
   } catch (error) {
     console.error(error);
   }
@@ -316,7 +316,7 @@ function* loginGuest() {
     );
   } catch (error) {
     console.error(error);
-    history.push(constants.PAGE_PATH.LOGIN);
+    history.push(PAGE_PATH.LOGIN);
   }
 }
 

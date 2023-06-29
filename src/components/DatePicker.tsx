@@ -4,7 +4,7 @@ import dateFnsParse from 'date-fns/parse';
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
-import constants from 'constants/index';
+import { CALENDAR } from 'constants/index';
 
 interface DatePickerProps {
   date?: Date;
@@ -37,8 +37,8 @@ const modifiersStyles = {
 const DatePickerContainer = ({ date, onClickItem }: DatePickerProps) => {
   const [selectedDate, setSelectedDate] = useState(date ?? new Date());
 
-  const months = constants.CALENDAR.MONTHS;
-  const weekdays = constants.CALENDAR.WEEKDAYS;
+  const months = CALENDAR.MONTHS;
+  const weekdays = CALENDAR.WEEKDAYS;
   const format = 'yyyy-MM-dd';
 
   const handleDateChange = (currentDate) => {

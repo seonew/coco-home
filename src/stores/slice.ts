@@ -8,7 +8,7 @@ import {
   ShowConfirmPayload,
   ShowAlertPayload,
 } from 'types';
-import constants from 'constants/index';
+import { HOME } from 'constants/index';
 
 export interface State {
   isAuthenticated: boolean;
@@ -44,10 +44,10 @@ const initialState: State = {
 
   currentHome: {
     id: localStorage.getItem('lastHomeId') ?? '',
-    spaces: constants.HOME.SPACES,
+    spaces: HOME.SPACES,
     members: [{ name: '', type: '', userId: '', imgUrl: '' }],
-    works: constants.HOME.WORKS,
-    items: constants.HOME.ITEMS,
+    works: HOME.WORKS,
+    items: HOME.ITEMS,
   },
   refrigeratorSummary: [],
   alertList: null,
@@ -78,12 +78,12 @@ const appSlice = createSlice({
     deleteHomeId: (state, action) => {},
     deleteHomeIdSuccess: (state) => {
       state.currentHome.id = '';
-      state.currentHome.spaces = constants.HOME.SPACES;
+      state.currentHome.spaces = HOME.SPACES;
       state.currentHome.members = [
         { name: '', type: '', userId: '', imgUrl: '' },
       ];
-      state.currentHome.works = constants.HOME.WORKS;
-      state.currentHome.items = constants.HOME.ITEMS;
+      state.currentHome.works = HOME.WORKS;
+      state.currentHome.items = HOME.ITEMS;
     },
     deleteHomeIdFailed: (state, action) => {},
     updateHomeId: (state, action) => {},

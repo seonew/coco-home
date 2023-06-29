@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { HomeListItem, RefrigeratorFood } from 'types';
-import constants, { pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, pageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
 import List from './List';
@@ -98,9 +98,7 @@ const RegisterRefrigeratorList = () => {
 
   return (
     <Root>
-      <Header
-        text={pageNameByPathName[constants.PAGE_PATH.REFRIGERATOR_LIST]}
-      />
+      <Header text={pageNameByPathName[PAGE_PATH.REFRIGERATOR_LIST]} />
       {homeId ? (
         <Container>
           {loading ? (
@@ -114,9 +112,7 @@ const RegisterRefrigeratorList = () => {
             color={'primary'}
             title={'add'}
             style={floatingButtonStyle}
-            onClick={handleClickButton(
-              constants.PAGE_PATH.REFRIGERATOR_REGISTER
-            )}
+            onClick={handleClickButton(PAGE_PATH.REFRIGERATOR_REGISTER)}
           >
             <AddIcon />
           </FloatingButton>

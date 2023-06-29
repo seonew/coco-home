@@ -11,7 +11,7 @@ import { actions as appActions } from 'stores/slice';
 import { fetchMyHomeListApi } from 'api';
 import { AxiosResponse } from 'axios';
 import { HomeListItem } from 'types';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 
 export default function* rootSaga() {
   yield all([
@@ -48,7 +48,7 @@ function* selectHome(action) {
     yield put(appActions.updateHomeId(homeId));
     yield put(actions.setEdited(false));
     yield take(appActions.updateHomeIdSuccess);
-    yield put(appActions.goUrl(constants.PAGE_PATH.MAIN));
+    yield put(appActions.goUrl(PAGE_PATH.MAIN));
   } catch (error) {
     console.error(error);
   }
@@ -68,7 +68,7 @@ function* goHomeRegisterPageToCreate(action) {
     yield put(appActions.updateHomeId(homeId));
     yield put(actions.setEdited(false));
     yield take(appActions.updateHomeIdSuccess);
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_REGISTER));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_REGISTER));
   } catch (error) {
     console.error(error);
   }
@@ -85,7 +85,7 @@ function* goHomeRegisterPageToEdit(action) {
     yield put(appActions.updateHomeId(homeId));
     yield put(actions.setEdited(true));
     yield take(appActions.updateHomeIdSuccess);
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_REGISTER));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_REGISTER));
   } catch (error) {
     console.error(error);
   }

@@ -2,7 +2,7 @@ import { all, takeLatest, put, call, select } from '@redux-saga/core/effects';
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { RootState } from 'stores';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import { insertHomesTasksApi, updateHomeTasksApi } from 'api';
 import { HomeTask } from 'types';
 
@@ -30,7 +30,7 @@ function* updateTaskRegister(action) {
 
     yield call(updateHomeTasksApi, { ...item, homeId });
     yield put(actions.updateTaskRegisterSuccess(item));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_LIST));
   } catch (error) {
     yield put(actions.updateTaskRegisterFailed(error));
     console.error(error);
@@ -51,7 +51,7 @@ function* insertTaskRegister(action) {
 
     yield call(insertHomesTasksApi, { ...item, homeId });
     yield put(actions.insertTaskRegisterSuccess(item));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_LIST));
   } catch (error) {
     yield put(actions.insertTaskRegisterFailed(error));
     console.error(error);
@@ -67,7 +67,7 @@ function* goRegisterPageToCreate() {
     const result: HomeTask | null = null;
     yield put(actions.setSelectedItem(result));
     yield put(actions.setEdit(false));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_REGISTER));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_REGISTER));
   } catch (error) {
     console.error(error);
   }
@@ -87,7 +87,7 @@ function* goRegisterPageToEdit(action) {
     const result: HomeTask = getSelectedItem({ homeId, item, isRepeat: false });
     yield put(actions.setSelectedItem(result));
     yield put(actions.setEdit(true));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_REGISTER));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_REGISTER));
   } catch (error) {
     console.error(error);
   }
@@ -107,7 +107,7 @@ function* goRegisterPageToRepeat(action) {
     const result: HomeTask = getSelectedItem({ homeId, item, isRepeat: true });
     yield put(actions.setSelectedItem(result));
     yield put(actions.setEdit(false));
-    yield put(appActions.goUrl(constants.PAGE_PATH.HOME_TASK_REGISTER));
+    yield put(appActions.goUrl(PAGE_PATH.HOME_TASK_REGISTER));
   } catch (error) {
     console.error(error);
   }

@@ -9,7 +9,7 @@ import {
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { RootState } from 'stores';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import {
   fetchRefrigeratorFoodsApi,
   updateRefrigeratorFoodsApi,
@@ -39,7 +39,7 @@ function* deleteRefrigeratorFoods(action) {
 
     yield put(actions.deleteRefrigeratorFoodsSuccess(result));
     yield put(actions.fetchRefrigeratorFoods());
-    yield put(appActions.goUrl(constants.PAGE_PATH.REFRIGERATOR_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.REFRIGERATOR_LIST));
   } catch (error) {
     yield put(actions.deleteRefrigeratorFoodsFailed(error));
     console.error(error);

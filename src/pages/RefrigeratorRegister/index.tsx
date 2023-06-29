@@ -3,7 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
-import constants, { pageNameByPathName } from 'constants/index';
+import {
+  ADDED_DATE,
+  ADDED_EXPIRATION_DATE,
+  COUNTER,
+  PAGE_PATH,
+  PRIORITY,
+  SPACE,
+  TARGET_ITEM,
+  pageNameByPathName,
+} from 'constants/index';
 import { RefrigeratorFood } from 'types';
 import { getMessage } from 'utils/common';
 import styled from 'styled-components';
@@ -142,10 +151,10 @@ const RegisterRefrigerator = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[constants.PAGE_PATH.REFRIGERATOR_REGISTER]}
+        text={pageNameByPathName[PAGE_PATH.REFRIGERATOR_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={constants.SPACE} required={true}>
+      <Row text={SPACE} required={true}>
         <ChipList
           type={'space'}
           items={spaces}
@@ -153,23 +162,23 @@ const RegisterRefrigerator = () => {
           onClickItem={handleClickSpace}
         />
       </Row>
-      <Row text={constants.TARGET_ITEM} required={true}>
+      <Row text={TARGET_ITEM} required={true}>
         <TextField onChange={handleChangeTextField} />
       </Row>
-      <Row text={constants.COUNTER} required={true}>
+      <Row text={COUNTER} required={true}>
         <Counter onClickItem={handleClickCount} />
       </Row>
-      <Row text={constants.PRIORITY} required={true}>
+      <Row text={PRIORITY} required={true}>
         <Rating onClickItem={handleClickPriority} />
       </Row>
       <div>
         <Toggle onChange={handleChangeToggle} />
         {showCalendar ? (
-          <Row text={constants.ADDED_DATE} required={true}>
+          <Row text={ADDED_DATE} required={true}>
             <DatePicker onClickItem={handleClickDate} />
           </Row>
         ) : (
-          <Row text={constants.ADDED_EXPIRATION_DATE} required={true}>
+          <Row text={ADDED_EXPIRATION_DATE} required={true}>
             <ExpirationDay
               text={expirationDay}
               onChange={handleChangeExpirationDay}

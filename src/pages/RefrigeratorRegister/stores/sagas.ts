@@ -2,7 +2,7 @@ import { all, takeLatest, put, call, select } from '@redux-saga/core/effects';
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { RootState } from 'stores';
-import constants from 'constants/index';
+import { PAGE_PATH } from 'constants/index';
 import { insertRefrigeratorFoodsApi } from 'api/refrigerator';
 import { RefrigeratorFood } from 'types';
 
@@ -40,7 +40,7 @@ function* insertUserData(action) {
 
     yield call(insertRefrigeratorFoodsApi, nextItem);
     yield put(actions.insertUserRegisterRefrigeratorDataSuccess(item));
-    yield put(appActions.goUrl(constants.PAGE_PATH.REFRIGERATOR_LIST));
+    yield put(appActions.goUrl(PAGE_PATH.REFRIGERATOR_LIST));
   } catch (error) {
     yield put(actions.insertUserRegisterRefrigeratorDataFailed(error));
     console.error(error);

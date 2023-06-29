@@ -4,7 +4,7 @@ import { RootState } from 'stores';
 import { actions as appActions } from 'stores/slice';
 import { actions } from './stores/slice';
 import { Home } from 'types';
-import constants, { pageNameByPathName } from 'constants/index';
+import { DISPLAY_NAME, PAGE_PATH, pageNameByPathName } from 'constants/index';
 import { getMessage } from 'utils/common';
 
 import styled from 'styled-components';
@@ -41,10 +41,10 @@ const HomeRegister = () => {
     (state) => state.homeRegister.nextHome
   );
   const displayName = nextHome.displayName;
-  const works = nextHome['works'];
-  const members = nextHome['members'];
-  const spaces = nextHome['spaces'];
-  const items = nextHome['items'];
+  const works = nextHome.works;
+  const members = nextHome.members;
+  const spaces = nextHome.spaces;
+  const items = nextHome.items;
   const openMemberListModal = useSelector<RootState, boolean>(
     (state) => state.homeRegister.memberListModal.open
   );
@@ -141,10 +141,10 @@ const HomeRegister = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[constants.PAGE_PATH.HOME_REGISTER]}
+        text={pageNameByPathName[PAGE_PATH.HOME_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={constants.DISPLAY_NAME} required={true}>
+      <Row text={DISPLAY_NAME} required={true}>
         <TextField text={displayName} onChange={handleChangeTextField} />
       </Row>
       <Row text="구성원" required={true}>

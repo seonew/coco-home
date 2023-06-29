@@ -11,7 +11,7 @@ import { RootState } from 'stores';
 import { actions } from './slice';
 import { actions as appActions } from 'stores/slice';
 import { insertHomesApi, updateHomesApi, fetchMemberUsersApi } from 'api';
-import constants from 'constants/index';
+import { HOME, PAGE_PATH } from 'constants/index';
 import { Home, HomeMember, User } from 'types';
 
 export default function* rootSaga() {
@@ -43,7 +43,7 @@ function* initialize() {
     let nextHome: Home = {
       id: '',
       displayName: '',
-      spaces: constants.HOME.SPACES,
+      spaces: HOME.SPACES,
       members: [
         {
           name: user.name,
@@ -52,8 +52,8 @@ function* initialize() {
           imgUrl: user.imgUrl,
         },
       ],
-      works: constants.HOME.WORKS,
-      items: constants.HOME.ITEMS,
+      works: HOME.WORKS,
+      items: HOME.ITEMS,
     };
 
     if (edited) {
@@ -105,7 +105,7 @@ function* insert(action) {
     }
 
     yield put(appActions.updateHomeId(homeId));
-    yield put(appActions.goUrl(constants.PAGE_PATH.MYPAGE));
+    yield put(appActions.goUrl(PAGE_PATH.MYPAGE));
   } catch (error) {
     yield put(actions.insertMyHomeRegisterFailed(error));
     console.error(error);
