@@ -2,7 +2,6 @@ import { memo } from 'react';
 import { HomeTask } from 'types';
 import { getUnitCodeToString } from 'utils/common';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/styles';
 
 interface ListItemProps {
   item: HomeTask;
@@ -44,22 +43,11 @@ const Tag = styled.span`
   color: #1976d2;
 `;
 
-const useStyles = makeStyles({
-  mr8: {
-    marginRight: '8px',
-  },
-  mr6: {
-    marginRight: '6px',
-  },
-});
-
 const ListItem = ({ item }: ListItemProps) => {
-  const classes = useStyles();
-
   return (
     <Div>
       <CategoryDiv>
-        <Tag className={classes.mr6}>
+        <Tag className="mr6">
           <strong>{item.member.name}</strong>
         </Tag>
         <b>{item.space}</b>
@@ -70,19 +58,15 @@ const ListItem = ({ item }: ListItemProps) => {
             <span>{item.targetItem}&nbsp;</span>
             <span>{item.work}</span>
           </Text>
-          {item.cycle.value !== 0 ? (
+          {item.cycle.unit !== '' && (
             <Text>
               <span>주기: </span>
               <span>{item.cycle.value}&nbsp;</span>
               <span>{getUnitCodeToString(item.cycle.unit)}</span>
             </Text>
-          ) : (
-            ''
           )}
           <Text>
-            <span className={classes.mr8}>
-              실행 일시: {item.date.toString()}
-            </span>
+            <span className="mr8">실행 일시: {item.date}</span>
           </Text>
         </ContentInfo>
       </ContentDiv>

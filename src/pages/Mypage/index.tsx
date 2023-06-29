@@ -103,7 +103,9 @@ const Mypage = () => {
     (state) => state.app.currentHome.id
   );
   const loading = useSelector<RootState, boolean>((state) => state.app.loading);
-  const init = useSelector<RootState, boolean>((state) => state.mypage.init);
+  const initialized = useSelector<RootState, boolean>(
+    (state) => state.mypage.initialized
+  );
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -147,7 +149,7 @@ const Mypage = () => {
   return (
     <Root>
       <Header text={pageNameByPathName[PAGE_PATH.MYPAGE]} />
-      {init && loading ? (
+      {initialized && loading ? (
         <Skeleton />
       ) : (
         <>

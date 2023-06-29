@@ -1,25 +1,25 @@
 import { memo } from 'react';
-import { Box, Skeleton, Typography } from '@material-ui/core';
+import { Box, Skeleton as SkeletonMUI, Typography } from '@material-ui/core';
 
-const LoadingHomeInfo = () => {
+const Skeleton = () => {
   return (
     <Box sx={{ padding: 2 }}>
-      <Skeleton
+      <SkeletonMUI
         variant="rectangular"
         height={50}
         style={{ borderRadius: 8, marginBottom: 15 }}
       />
-      <Skeleton
+      <SkeletonMUI
         variant="rectangular"
         height={125}
         style={{ borderRadius: 20, marginBottom: 15 }}
       />
-      <Skeleton width="100%">
+      <SkeletonMUI width="100%">
         <Typography variant="h4" component="div">
           .
         </Typography>
-      </Skeleton>
-      <Skeleton
+      </SkeletonMUI>
+      <SkeletonMUI
         variant="rectangular"
         height={50}
         style={{ borderRadius: 8, marginBottom: 15 }}
@@ -28,4 +28,4 @@ const LoadingHomeInfo = () => {
   );
 };
 
-export default memo(LoadingHomeInfo);
+export default memo(Skeleton);

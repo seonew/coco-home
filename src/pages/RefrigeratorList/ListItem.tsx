@@ -65,12 +65,6 @@ const useStyles = makeStyles({
   bottom: {
     verticalAlign: 'bottom',
   },
-  mr8: {
-    marginRight: '8px',
-  },
-  mr6: {
-    marginRight: '6px',
-  },
 });
 
 const ListItem = ({ item }: ListItemProps) => {
@@ -97,7 +91,7 @@ const ListItem = ({ item }: ListItemProps) => {
   return (
     <Div>
       <CategoryDiv>
-        <Tag className={classes.mr6}>
+        <Tag className="mr6">
           <strong>{item.space}</strong>
         </Tag>
         <b>{item.targetItem}</b>
@@ -119,7 +113,7 @@ const ListItem = ({ item }: ListItemProps) => {
             />
           </TextDiv>
           <TextDiv>
-            <span className={classes.mr8}>수량: {item.count}</span>
+            <span className="mr8">수량: {item.count}</span>
             <span onClick={handleClickEditItem}>
               <FontAwesomeIcon icon={faMinusCircle} size="sm" />
             </span>

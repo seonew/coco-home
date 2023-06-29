@@ -6,6 +6,7 @@ import {
   ListItemAvatar,
   Avatar,
   Checkbox,
+  ListItemButton,
 } from '@material-ui/core';
 import { HomeMember } from 'types';
 
@@ -26,22 +27,24 @@ const MemberList = ({ members, onClickItem }: MemberListProps) => {
   return (
     <List dense data-cy="memberList">
       {(members?.length as number) > 0
-        ? members?.map((member, index) => {
+        ? members?.map((member) => {
             return (
-              <ListItem disablePadding key={index} disabled={member.added}>
-                <Checkbox
-                  size="small"
-                  onChange={handleChangeItem(member)}
-                  disabled={member.added}
-                />
-                <ListItemAvatar>
-                  <Avatar
-                    alt={member.name}
-                    src={member.imgUrl}
-                    sx={{ width: 32, height: 32 }}
+              <ListItem disablePadding key={member.userId}>
+                <ListItemButton disableGutters disabled={member.added}>
+                  <Checkbox
+                    size="small"
+                    onChange={handleChangeItem(member)}
+                    disabled={member.added}
                   />
-                </ListItemAvatar>
-                <ListItemText id={member.userId} primary={member.name} />
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={member.name}
+                      src={member.imgUrl}
+                      sx={{ width: 32, height: 32 }}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText id={member.userId} primary={member.name} />
+                </ListItemButton>
               </ListItem>
             );
           })

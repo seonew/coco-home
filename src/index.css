@@ -27,3 +27,15 @@ div.day-picker input {
 .DayPickerInput-Overlay {
   bottom: 38px;
 }
+
+.mr8 {
+  margin-right: 8px;
+}
+
+.mr6 {
+  margin-right: 6px;
+}
+
+.none {
+  display: none;
+}

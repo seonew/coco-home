@@ -24,12 +24,6 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
     (state) => state.homeRegister.currentType
   );
 
-  const showAlertModal = useCallback(
-    (text) => {
-      dispatch(appActions.showAlertModal({ text }));
-    },
-    [dispatch]
-  );
   const handleClose = useCallback(() => {
     setText('');
     dispatch(actions.setOpenRegisterModal(!open));
@@ -40,19 +34,19 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
     setText(current);
   }, []);
 
-  const handleChangeItem = useCallback(() => {
+  const handleClickItem = useCallback(() => {
     handleClose();
   }, [handleClose]);
 
-  const handleChangeTextItem = useCallback(() => {
+  const handleClickTextItem = useCallback(() => {
     if (text === '') {
-      showAlertModal('내용을 입력해주세요.');
+      dispatch(appActions.showAlertModal({ text: '내용을 입력해주세요.' }));
       return;
     }
 
     dispatch(actions.addNextHomeItem({ currentType, text }));
-    handleChangeItem();
-  }, [currentType, dispatch, handleChangeItem, showAlertModal, text]);
+    handleClickItem();
+  }, [currentType, dispatch, handleClickItem, text]);
 
   return (
     <Dialog
@@ -75,14 +69,10 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleChangeItem} color="primary">
+        <Button onClick={handleClickItem} color="primary">
           취소
         </Button>
-        <Button
-          onClick={handleChangeTextItem}
-          color="primary"
-          data-cy="confirm"
-        >
+        <Button onClick={handleClickTextItem} color="primary" data-cy="confirm">
           확인
         </Button>
       </DialogActions>

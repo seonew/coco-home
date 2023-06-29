@@ -7,7 +7,6 @@ import { actions as taskRegisterActions } from '../TaskRegister/stores/slice';
 import { Home, HomeAlert, HomeMember } from 'types';
 
 import { Avatar } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 import RoundedRowItem from 'components/RoundedRowItem';
 import ContentList from 'components/ContentList';
 import AlertList from './AlertList';
@@ -80,18 +79,12 @@ const Label = styled.span`
   font-size: 8px;
   font-weight: 600;
   line-height: 18px;
-  letter-spacing: -0.31px;
   color: #1976d2;
   border: 1px #1976d2 solid;
   border-radius: 20px;
   background-color: #fff;
+  margin-left: 5px;
 `;
-
-const useStyles = makeStyles(() => ({
-  ml: {
-    marginLeft: '5px',
-  },
-}));
 
 const HomeInfo = () => {
   const currentHome = useSelector<RootState, Home>(
@@ -108,7 +101,6 @@ const HomeInfo = () => {
   const init = useSelector<RootState, boolean>((state) => state.app.init);
 
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const handleClickAlertItem = useCallback(
     (item) => {
@@ -121,28 +113,23 @@ const HomeInfo = () => {
     dispatch(appActions.fetchMainHomeInfo());
   }, [dispatch]);
 
-  const renderUserInfo = useCallback(
-    (member) => {
-      return (
-        <UserInfo>
-          <ListItemAvatar>
-            <Avatar
-              alt={member.name}
-              src={member.imgUrl}
-              sx={{ width: 26, height: 26 }}
-            />
-          </ListItemAvatar>
-          <ListItemText id={member.userId}>
-            <ItemText>{member.name}</ItemText>
-            {member.type === 'owner' && (
-              <Label className={classes.ml}>{member.type}</Label>
-            )}
-          </ListItemText>
-        </UserInfo>
-      );
-    },
-    [classes.ml]
-  );
+  const renderUserInfo = useCallback((member) => {
+    return (
+      <UserInfo>
+        <ListItemAvatar>
+          <Avatar
+            alt={member.name}
+            src={member.imgUrl}
+            sx={{ width: 26, height: 26 }}
+          />
+        </ListItemAvatar>
+        <ListItemText id={member.userId}>
+          <ItemText>{member.name}</ItemText>
+          {member.type === 'owner' && <Label>{member.type}</Label>}
+        </ListItemText>
+      </UserInfo>
+    );
+  }, []);
 
   return (
     <Root>

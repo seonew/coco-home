@@ -57,12 +57,6 @@ const useStyles = makeStyles({
     display: 'block',
     padding: '0 7px 10px 7px',
   },
-  mr8: {
-    marginRight: '8px',
-  },
-  mr6: {
-    marginRight: '6px',
-  },
 });
 
 const ListItem = ({ item }: ListItemProps) => {
@@ -85,7 +79,7 @@ const ListItem = ({ item }: ListItemProps) => {
   return (
     <Div>
       <CategoryDiv data-cy="detail">
-        <Tag className={classes.mr6}>
+        <Tag className="mr6">
           <strong>{item.member.name}</strong>
         </Tag>
         <strong>{item.work}</strong>
@@ -118,9 +112,7 @@ const ListItem = ({ item }: ListItemProps) => {
             </Text>
           )}
           <Text>
-            <span className={classes.mr8}>
-              실행 일시: {item.date.toString()}
-            </span>
+            <span className="mr8">실행 일시: {item.date.toString()}</span>
           </Text>
         </ContentInfo>
       </ContentDiv>

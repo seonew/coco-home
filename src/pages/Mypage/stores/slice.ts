@@ -4,13 +4,13 @@ import { HomeListItem } from 'types';
 export interface State {
   homeList: HomeListItem[] | null;
   edited: boolean;
-  init: boolean;
+  initialized: boolean;
 }
 
 const initialState: State = {
   homeList: null,
   edited: false,
-  init: true,
+  initialized: true,
 };
 
 const mypageSlice = createSlice({
@@ -26,7 +26,7 @@ const mypageSlice = createSlice({
       state.edited = action.payload;
     },
     setInit: (state, action: PayloadAction<boolean>) => {
-      state.init = action.payload;
+      state.initialized = action.payload;
     },
 
     fetchHomeList: (state) => {},

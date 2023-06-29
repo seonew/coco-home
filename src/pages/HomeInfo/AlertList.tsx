@@ -40,10 +40,10 @@ const AlertList = ({ items, onClick }: AlertListProps) => {
 
   const renderAlertItem = useCallback(
     (item) => {
-      let dateText = `다음 안내까지 ${item.dday}일 남았습니다.`;
-      if (item.dday === 0) {
-        dateText = `오늘은 ${item.work} 하는 날입니다.`;
-      }
+      const dateText =
+        item.dday === 0
+          ? `오늘은 ${item.work} 하는 날입니다.`
+          : `다음 안내까지 ${item.dday}일 남았습니다.`;
 
       return (
         <Contents onClick={handleClickItem(item)}>

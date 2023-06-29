@@ -29,7 +29,6 @@ import { Home, HomeTask } from 'types';
 import SelectCycleModal from './SelectCycleModal';
 import Toggle from 'components/Toggle';
 import { Avatar, Button, Chip } from '@mui/material';
-import { makeStyles } from '@material-ui/styles';
 
 const Root = styled.div`
   height: 100%;
@@ -50,12 +49,6 @@ const ToggleContainer = styled.div`
   float: right;
   top: -35px;
 `;
-
-const useStyles = makeStyles(() => ({
-  none: {
-    display: 'none',
-  },
-}));
 
 const TaskRegister = () => {
   const edtied = useSelector<RootState, boolean>(
@@ -97,7 +90,6 @@ const TaskRegister = () => {
 
   const units = getUnitArray();
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const handleChangeSelectedCycle = useCallback(
     (name, value) => {
@@ -257,7 +249,7 @@ const TaskRegister = () => {
         <ToggleContainer>
           <Toggle onChange={handleClickToggle} checked={showCycle} />
         </ToggleContainer>
-        <div className={showCycle ? '' : classes.none}>
+        <div className={showCycle ? '' : 'none'}>
           <Button
             variant="contained"
             size="small"
