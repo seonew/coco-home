@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores';
 import { HomeListItem } from 'types';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, TextType, pageNameByPathName } from 'constants/index';
 
 import HomeInfo from './HomeInfo';
 import EmptyHome from './HomeInfo/EmptyHome';
@@ -22,9 +22,9 @@ const Home = () => {
       {homeId ? (
         <HomeInfo />
       ) : (homeList?.length as number) > 0 ? (
-        <EmptyHome displayText={'선택'} />
+        <EmptyHome textType={TextType.SELECT} />
       ) : (
-        <EmptyHome displayText={'등록'} />
+        <EmptyHome textType={TextType.REGISTER} />
       )}
     </>
   );

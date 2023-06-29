@@ -11,6 +11,11 @@ export const HOME = {
   ITEMS: ['세면대', '변기', '공기청정기'],
 };
 
+export enum TextType {
+  SELECT,
+  REGISTER,
+}
+
 // REFRIGERATOR
 export const ADDED_DATE = '언제 추가했나요?';
 export const ADDED_EXPIRATION_DATE = '얼마나 보관 예정인가요?';

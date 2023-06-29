@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as taskRegisterActions } from '../TaskRegister/stores/slice';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, TextType, pageNameByPathName } from 'constants/index';
 import styled from 'styled-components';
 import { HomeListItem, HomeTasksByDate } from 'types';
 
@@ -133,9 +133,9 @@ const TaskList = () => {
           </>
         </Container>
       ) : (homeList?.length as number) > 0 ? (
-        <EmptyHome displayText={'선택'} />
+        <EmptyHome textType={TextType.SELECT} />
       ) : (
-        <EmptyHome displayText={'등록'} />
+        <EmptyHome textType={TextType.REGISTER} />
       )}
     </Root>
   );

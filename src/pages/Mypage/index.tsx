@@ -15,7 +15,7 @@ import { faTrashAlt, faCog } from '@fortawesome/free-solid-svg-icons';
 import Skeleton from './Skeleton';
 import EmptyHome from '../HomeInfo/EmptyHome';
 import UserInfo from './UserInfo';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, TextType, pageNameByPathName } from 'constants/index';
 import Header from 'components/Header';
 
 const Root = styled.div`
@@ -204,7 +204,7 @@ const Mypage = () => {
               </FloatingButton>
             </>
           ) : (
-            <EmptyHome displayText={'등록'} />
+            <EmptyHome textType={TextType.REGISTER} />
           )}
         </>
       )}
