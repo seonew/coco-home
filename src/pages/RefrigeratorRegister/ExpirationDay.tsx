@@ -21,7 +21,7 @@ const Input = styled.input`
 `;
 
 const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
-  const [item, setItem] = useState<number>();
+  const [value, setValue] = useState<number>();
   const handleChangeTextField = useCallback(
     (e) => {
       const current = e.target.value;
@@ -29,7 +29,7 @@ const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
         return;
       }
       const result = parseInt(current, 10) || 0;
-      setItem(result);
+      setValue(result);
       onChange(result);
     },
     [onChange]
@@ -40,10 +40,10 @@ const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
       <Input
         type="number"
         pattern="\d*"
-        value={text ?? item}
+        value={text ?? value}
         onChange={handleChangeTextField}
       />
-      <span style={{ marginLeft: '5px' }}>일</span>
+      <span className="ml5">일</span>
     </Root>
   );
 };

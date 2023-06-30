@@ -1,7 +1,5 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import styled from 'styled-components';
-
-import { makeStyles } from '@material-ui/styles';
 import { Chip } from '@material-ui/core';
 
 interface DeletableChipListProps {
@@ -14,24 +12,19 @@ const Root = styled.div`
   margin: 5px 0;
 `;
 
-const useStyles = makeStyles(() => ({
-  selected: {
-    backgroundColor: '#1976d2',
-    color: 'white',
-  },
-  remove: {
-    display: 'inline',
-  },
-}));
-
 const DeletableChipList = ({
   type,
   items,
   onClickDeleteItem,
 }: DeletableChipListProps) => {
-  const classes = useStyles();
+  const handleClick = useCallback(
+    (item) => () => {
+      onClickDeleteItem(type, item);
+    },
+    [onClickDeleteItem, type]
+  );
 
-  const ListItems = items.map((item, index) => {
+  const listItems = items.map((item, index) => {
     return (
       <Chip
         style={{ margin: '3px' }}
@@ -39,16 +32,14 @@ const DeletableChipList = ({
         label={item}
         color="primary"
         variant="outlined"
-        onDelete={() => {
-          onClickDeleteItem(type, item);
-        }}
+        onDelete={handleClick(item)}
       />
     );
   });
 
   return (
-    <Root className={classes.remove}>
-      {items ? <>{ListItems}</> : '등록된 데이터가 없습니다.'}
+    <Root className="inline">
+      {items ? <>{listItems}</> : '등록된 데이터가 없습니다.'}
     </Root>
   );
 };

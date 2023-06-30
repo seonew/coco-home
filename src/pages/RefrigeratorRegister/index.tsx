@@ -9,6 +9,7 @@ import {
   COUNTER,
   PAGE_PATH,
   PRIORITY,
+  REFRIGERATOR_SPACES,
   SPACE,
   TARGET_ITEM,
   pageNameByPathName,
@@ -39,7 +40,6 @@ const RegisterRefrigerator = () => {
   const [priority, setPriority] = useState(0);
   const [date, setDate] = useState(new Date());
   const [expirationDay, setExpirationDay] = useState(0);
-  const spaces = ['냉장', '냉동'];
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
   );
@@ -157,7 +157,7 @@ const RegisterRefrigerator = () => {
       <Row text={SPACE} required={true}>
         <ChipList
           type={'space'}
-          items={spaces}
+          items={REFRIGERATOR_SPACES}
           selectedItem={space}
           onClickItem={handleClickSpace}
         />

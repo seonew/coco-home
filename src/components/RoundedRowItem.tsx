@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 interface RoundedRowItemProps {
   children?: ReactNode;
-  key?: string | number;
   text?: string;
   color?: string;
   onClick?: () => void;

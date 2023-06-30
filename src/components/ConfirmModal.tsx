@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 import {
   Button,
   Dialog,
@@ -28,29 +28,27 @@ const ConfirmModal = () => {
   }, [confirmAction, dispatch, handleClose]);
 
   return (
-    <>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-        {text ? (
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {text}
-            </DialogContentText>
-          </DialogContent>
-        ) : (
-          ''
-        )}
-        <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleConfirm}>확인</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      {text ? (
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {text}
+          </DialogContentText>
+        </DialogContent>
+      ) : (
+        ''
+      )}
+      <DialogActions>
+        <Button onClick={handleClose}>취소</Button>
+        <Button onClick={handleConfirm}>확인</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
-export default memo(ConfirmModal);
+export default ConfirmModal;

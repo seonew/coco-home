@@ -86,7 +86,7 @@ function* fetchRefrigeratorFoods(action) {
     const result: RefrigeratorFood[] = response.data;
 
     yield put(actions.fetchRefrigeratorFoodsSuccess(result));
-    delay(250);
+    yield delay(250);
     yield put(appActions.setLoading(false));
   } catch (error) {
     yield put(actions.fetchRefrigeratorFoodsFailed(error));

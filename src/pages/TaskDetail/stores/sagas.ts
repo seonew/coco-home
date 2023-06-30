@@ -45,6 +45,7 @@ function* fetchHomeTasksDetail(action) {
   const item = action.payload;
 
   try {
+    yield put(appActions.setLoading(true));
     yield put(actions.fetchHomeTasksDetailSuccess([]));
 
     const homeId = yield select((state: RootState) => state.app.currentHome.id);

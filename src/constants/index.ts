@@ -10,6 +10,7 @@ export const HOME = {
   WORKS: ['설거지', '청소', '교체', '분리수거'],
   ITEMS: ['세면대', '변기', '공기청정기'],
 };
+export const REFRIGERATOR_SPACES = ['냉장', '냉동'];
 
 export enum TextType {
   SELECT,
@@ -96,3 +97,8 @@ export const chart = {
     'rgb(201, 203, 207)',
   ],
 };
+
+export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+export const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+export const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;

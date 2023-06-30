@@ -15,15 +15,15 @@ const Root = styled.div`
 `;
 
 const Toggle = ({ text, onChange }: ToggleProps) => {
-  const [item, setItem] = useState('dday');
+  const [value, setValue] = useState('dday');
 
   const handleChange = useCallback(
     (e) => {
       const current = e.target.value;
-      setItem(current);
-      onChange(item);
+      setValue(current);
+      onChange(value);
     },
-    [item, onChange]
+    [value, onChange]
   );
 
   return (
@@ -31,7 +31,7 @@ const Toggle = ({ text, onChange }: ToggleProps) => {
       <ToggleButtonGroup
         size="small"
         color="primary"
-        value={item}
+        value={value}
         exclusive
         onChange={handleChange}
       >

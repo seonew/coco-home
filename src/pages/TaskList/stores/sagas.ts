@@ -92,7 +92,7 @@ function* fetchHomeTasksByDate(action) {
   const { year, month } = action.payload;
 
   try {
-    delay(250);
+    yield delay(250);
     const homeId: string = yield select(
       (state: RootState) => state.app.currentHome.id
     );

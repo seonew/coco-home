@@ -10,7 +10,7 @@ const initialState: State = {
 };
 
 const registerRefrigeratorSlice = createSlice({
-  name: 'registerRefrigerator',
+  name: 'registerRefrigeratorSlice',
   initialState,
   reducers: {
     setShowCalendar: (state, action) => {

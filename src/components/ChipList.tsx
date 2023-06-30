@@ -28,9 +28,6 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#1976d2',
     color: 'white',
   },
-  remove: {
-    display: 'inline',
-  },
 }));
 
 const ChipList = ({

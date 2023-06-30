@@ -8,12 +8,12 @@ interface MultiTextFieldProps {
 }
 
 const MultiTextField = ({ name, text, onChange }: MultiTextFieldProps) => {
-  const [item, setItem] = useState('');
+  const [value, setValue] = useState('');
 
   const handleChangeTextField = useCallback(
     (e) => {
       const current = e.target.value;
-      setItem(current);
+      setValue(current);
       onChange(name, current);
     },
     [onChange, name]
@@ -23,7 +23,7 @@ const MultiTextField = ({ name, text, onChange }: MultiTextFieldProps) => {
     <MuiTextField
       id="outlined-basic"
       size="small"
-      value={text ?? item}
+      value={text ?? value}
       onChange={handleChangeTextField}
       placeholder="여기에 입력해주세요."
       fullWidth

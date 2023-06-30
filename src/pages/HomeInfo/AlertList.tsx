@@ -47,10 +47,10 @@ const AlertList = ({ items, onClick }: AlertListProps) => {
 
       return (
         <Contents onClick={handleClickItem(item)}>
-          <span>{item.member.name}&nbsp;</span>
-          <span>{item.space}&nbsp;</span>
+          <span className="mr5">{item.member.name}</span>
+          <span className="mr5">{item.space}</span>
           {item.targetItem !== undefined ? (
-            <span>{item.targetItem}&nbsp;</span>
+            <span className="mr5">{item.targetItem}</span>
           ) : (
             ''
           )}

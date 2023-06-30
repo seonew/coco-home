@@ -40,10 +40,6 @@ const ChipContainer = styled.div`
   margin: 4px 3px;
 `;
 
-const Inline = styled.div`
-  display: inline-block;
-`;
-
 const ToggleContainer = styled.div`
   position: relative;
   float: right;
@@ -51,8 +47,8 @@ const ToggleContainer = styled.div`
 `;
 
 const TaskRegister = () => {
-  const edtied = useSelector<RootState, boolean>(
-    (state) => state.taskRegister.edit
+  const edited = useSelector<RootState, boolean>(
+    (state) => state.taskRegister.edited
   );
   const currentHome = useSelector<RootState, Home>(
     (state) => state.app.currentHome
@@ -176,12 +172,12 @@ const TaskRegister = () => {
       return;
     }
 
-    if (edtied) {
+    if (edited) {
       dispatch(actions.updateTaskRegister(selectedContent));
     } else {
       dispatch(actions.insertTaskRegister(selectedContent));
     }
-  }, [dispatch, edtied, selectedContent, validate]);
+  }, [dispatch, edited, selectedContent, validate]);
 
   return (
     <Root>
@@ -190,9 +186,9 @@ const TaskRegister = () => {
         onClickSaveContents={handleSaveContents}
       />
       <Row text={MEMBER} required={true}>
-        {members.map((member, index) => {
+        {members.map((member) => {
           return (
-            <ChipContainer key={index}>
+            <ChipContainer key={member.userId}>
               {selectedContent.member.id === member.userId ? (
                 <Chip
                   avatar={<Avatar alt={member.name} src={member.imgUrl} />}
@@ -253,19 +249,19 @@ const TaskRegister = () => {
           <Button
             variant="contained"
             size="small"
-            style={{ marginRight: '5px' }}
+            className="mr5"
             onClick={handleClickOpenSelectCycleModal}
           >
             {selectedContent.cycle.value}
           </Button>
-          <Inline>
+          <div className="inline-block">
             <ChipList
               type={'unit'}
               items={units}
               selectedItem={getUnitCodeToString(selectedContent.cycle.unit)}
               onClickItem={handleChangeSelectedCycle}
             />
-          </Inline>
+          </div>
         </div>
       </Row>
       <SelectCycleModal

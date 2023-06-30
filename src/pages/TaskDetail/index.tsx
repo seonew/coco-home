@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
-import { actions as appActions } from 'stores/slice';
 import { HomeTask } from 'types';
 import { PAGE_PATH, pageNameByPathName } from 'constants/index';
 
@@ -23,7 +22,7 @@ const Root = styled.div`
   background-color: #f4f4f4;
 `;
 
-const RegisterDetail = () => {
+const TaskDetail = () => {
   const dispatch = useDispatch();
   const currentHomeTasks = useSelector<RootState, HomeTask[] | null>(
     (state) => state.taskDetail.currentHomeTasks
@@ -34,7 +33,6 @@ const RegisterDetail = () => {
   const { year, month, day } = param;
 
   useEffect(() => {
-    dispatch(appActions.setLoading(true));
     const targetDate = { year: year, month: month, day: day };
     dispatch(actions.fetchHomeTasksDetail(targetDate));
   }, [day, dispatch, month, year]);
@@ -47,4 +45,4 @@ const RegisterDetail = () => {
   );
 };
 
-export default memo(RegisterDetail);
+export default memo(TaskDetail);

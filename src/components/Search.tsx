@@ -20,13 +20,6 @@ const Search = ({ placeholder, onClickItem }: SearchProps) => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
-  const showAlertModal = useCallback(
-    (text) => {
-      dispatch(appActions.showAlertModal({ text }));
-    },
-    [dispatch]
-  );
-
   const handleChangeTextField = useCallback((e) => {
     const current = e.target.value;
     setText(current);
@@ -34,12 +27,12 @@ const Search = ({ placeholder, onClickItem }: SearchProps) => {
 
   const handleClickItem = useCallback(() => {
     if (text === '') {
-      showAlertModal('내용을 입력해주세요.');
+      dispatch(appActions.showAlertModal({ text: '내용을 입력해주세요.' }));
       return;
     }
 
     onClickItem(text);
-  }, [onClickItem, showAlertModal, text]);
+  }, [dispatch, onClickItem, text]);
 
   return (
     <Root data-cy="search">

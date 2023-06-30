@@ -55,13 +55,13 @@ const ListItem = ({ item }: ListItemProps) => {
       <ContentDiv>
         <ContentInfo>
           <Text>
-            <span>{item.targetItem}&nbsp;</span>
+            <span className="mr5">{item.targetItem}</span>
             <span>{item.work}</span>
           </Text>
           {item.cycle.unit !== '' && (
             <Text>
               <span>주기: </span>
-              <span>{item.cycle.value}&nbsp;</span>
+              <span className="mr5">{item.cycle.value}</span>
               <span>{getUnitCodeToString(item.cycle.unit)}</span>
             </Text>
           )}
