@@ -17,7 +17,8 @@ import { HomeTask, HomeTasksByDate } from 'types';
 export default function* rootSaga() {
   yield all([
     watchSearchHomeTasks(),
-    watchSetYearMonth(),
+    watchGoToPreviousMonth(),
+    watchGoToNextMonth(),
     watchFetchHomeTasksByDate(),
   ]);
 }
@@ -48,38 +49,50 @@ function* searchHomeTasks(action) {
   }
 }
 
-export function* watchSetYearMonth() {
-  yield takeLatest(actions.setYearMonth, setYearMonth);
+export function* watchGoToPreviousMonth() {
+  yield takeLatest(actions.goToPreviousMonth, goToPreviousMonth);
 }
 
-function* setYearMonth(action) {
-  const { year, month, actionType } = action.payload;
+function* goToPreviousMonth(action) {
+  const { year, month } = action.payload;
 
   try {
     let nextYear = year;
     let nextMonth = month;
 
-    if ('previous' === actionType) {
-      if (nextMonth === 1) {
-        nextMonth = 12;
-        nextYear--;
-      } else {
-        nextMonth--;
-      }
+    if (nextMonth === 1) {
+      nextMonth = 12;
+      nextYear--;
     } else {
-      if (nextMonth === 12) {
-        nextMonth = 1;
-        nextYear++;
-      } else {
-        nextMonth++;
-      }
+      nextMonth--;
     }
 
-    yield put(
-      actions.setYearMonthSuccess({ year: nextYear, month: nextMonth })
-    );
+    yield put(actions.setCurrentDate({ year: nextYear, month: nextMonth }));
   } catch (error) {
-    yield put(actions.setYearMonthFailed(error));
+    console.error(error);
+  }
+}
+
+export function* watchGoToNextMonth() {
+  yield takeLatest(actions.goToNextMonth, goToNextMonth);
+}
+
+function* goToNextMonth(action) {
+  const { year, month } = action.payload;
+
+  try {
+    let nextYear = year;
+    let nextMonth = month;
+
+    if (nextMonth === 12) {
+      nextMonth = 1;
+      nextYear++;
+    } else {
+      nextMonth++;
+    }
+
+    yield put(actions.setCurrentDate({ year: nextYear, month: nextMonth }));
+  } catch (error) {
     console.error(error);
   }
 }

@@ -25,7 +25,7 @@ const initialState: State = {
 };
 
 const taskListSlice = createSlice({
-  name: 'taskList',
+  name: 'taskListSlice',
   initialState,
   reducers: {
     searchHomeTasks: (state, action: PayloadAction<string>) => {},
@@ -44,8 +44,15 @@ const taskListSlice = createSlice({
       state.currentCalendarHomeTasks = action.payload;
     },
     fetchHomeTasksByDateFailed: (state, action) => {},
-    setYearMonth: (state, action: PayloadAction<Record<string, unknown>>) => {},
-    setYearMonthSuccess: (
+    goToPreviousMonth: (
+      state,
+      action: PayloadAction<Record<string, unknown>>
+    ) => {},
+    goToNextMonth: (
+      state,
+      action: PayloadAction<Record<string, unknown>>
+    ) => {},
+    setCurrentDate: (
       state,
       action: PayloadAction<{ year: number; month: number }>
     ) => {
@@ -53,7 +60,6 @@ const taskListSlice = createSlice({
       state.currentDate.month = action.payload.month;
       state.currentCalendarHomeTasks = {};
     },
-    setYearMonthFailed: (state, action) => {},
   },
 });
 

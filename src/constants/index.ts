@@ -102,3 +102,5 @@ export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 export const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
 export const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+export const AUTH_URI = process.env.REACT_APP_AUTH_URI || '';
+export const AUTH_KAKAO_URI = process.env.REACT_APP_KAKAO_AUTH_URI || '';
