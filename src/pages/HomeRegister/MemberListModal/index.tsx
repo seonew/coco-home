@@ -46,26 +46,18 @@ const MemberListModal = ({ open }: MemberListModalProps) => {
       return;
     }
 
-    const result: HomeMember[] = [];
-    for (let current of nextMembers) {
-      const memberList = members.map((element) => {
-        return element.userId;
-      });
+    const result = nextMembers.reduce((result: HomeMember[], member) => {
+      const { name, type, userId, imgUrl } = member;
 
-      if (memberList.includes(current.userId)) {
+      const foundMember = members.find((current) => current.userId === userId);
+      if (foundMember) {
         showAlertModal('이미 추가된 사용자 입니다.');
-        return;
+      } else {
+        result.push({ name, type, userId, imgUrl });
       }
 
-      const nextItem = {
-        name: current.name,
-        type: current.type,
-        userId: current.userId,
-        imgUrl: current.imgUrl,
-      };
-
-      result.push(nextItem);
-    }
+      return result;
+    }, []);
 
     dispatch(actions.addHomeMembers(result));
 

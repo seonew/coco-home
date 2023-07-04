@@ -1,3 +1,8 @@
+export const MEMBER_TEXT = '구성원';
+export const WORK_TEXT = '집안일';
+export const SPACE_TEXT = '공간';
+export const TARGET_ITEM_TEXT = '대상';
+
 export const DISPLAY_NAME = '우리집 이름을 등록해 주세요.';
 export const MEMBER = '누가 했나요?';
 export const WORK = '무엇을 했나요?';

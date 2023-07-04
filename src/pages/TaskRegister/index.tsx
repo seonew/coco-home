@@ -151,24 +151,25 @@ const TaskRegister = () => {
   );
 
   const validate = useCallback(() => {
-    const keys = Object.keys(selectedContent);
-    const result = keys.some((key) => {
-      if (
-        (key !== 'id' &&
-          key !== 'targetItem' &&
-          selectedContent[key] === undefined) ||
-        (key === 'member' && selectedContent[key].name === undefined)
-      ) {
-        showAlertModal(getMessage(key));
-        return true;
-      }
+    if (selectedContent['member'].name === undefined) {
+      showAlertModal(getMessage('member'));
       return false;
-    });
-    return result;
+    }
+
+    const targetKeys = ['work', 'space', 'date'];
+    const invalidKey = targetKeys.find(
+      (key) => selectedContent[key] === undefined
+    );
+    if (invalidKey) {
+      showAlertModal(getMessage(invalidKey));
+      return false;
+    }
+
+    return true;
   }, [selectedContent, showAlertModal]);
 
   const handleSaveContents = useCallback(() => {
-    if (validate()) {
+    if (!validate()) {
       return;
     }
 

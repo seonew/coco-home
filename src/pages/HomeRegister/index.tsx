@@ -4,7 +4,15 @@ import { RootState } from 'stores';
 import { actions as appActions } from 'stores/slice';
 import { actions } from './stores/slice';
 import { Home } from 'types';
-import { DISPLAY_NAME, PAGE_PATH, pageNameByPathName } from 'constants/index';
+import {
+  DISPLAY_NAME,
+  MEMBER_TEXT,
+  PAGE_PATH,
+  SPACE_TEXT,
+  TARGET_ITEM_TEXT,
+  WORK_TEXT,
+  pageNameByPathName,
+} from 'constants/index';
 import { getMessage } from 'utils/common';
 
 import styled from 'styled-components';
@@ -98,36 +106,30 @@ const HomeRegister = () => {
   );
 
   const validate = useCallback(() => {
-    const keys = Object.keys(nextHome);
-    let result = keys.some((key) => {
-      if (
-        (key === 'displayName' && nextHome.displayName === '') ||
-        ((key === 'spaces' || key === 'members' || key === 'works') &&
-          nextHome[key].length === 0)
-      ) {
-        showAlertModal(getMessage(key));
-        return true;
-      }
-
+    if (nextHome.displayName === '') {
+      showAlertModal(getMessage('displayName'));
       return false;
-    });
-
-    if (!result) {
-      const owner = members.some((member) => {
-        return member.type === 'owner';
-      });
-
-      if (!owner) {
-        showAlertModal('구성원에 본인을 포함해 주세요.');
-        result = true;
-      }
     }
 
-    return result;
+    const isOwner =
+      members.findIndex((member) => member.type === 'owner') !== -1;
+    if (!isOwner) {
+      showAlertModal('구성원에 본인을 포함해 주세요.');
+      return false;
+    }
+
+    const targetKeys = ['members', 'works', 'spaces'];
+    const invalidKey = targetKeys.find((key) => nextHome[key].length === 0);
+    if (invalidKey) {
+      showAlertModal(getMessage(invalidKey));
+      return false;
+    }
+
+    return true;
   }, [members, nextHome, showAlertModal]);
 
   const handleSaveContents = useCallback(() => {
-    if (validate()) {
+    if (!validate()) {
       return;
     }
 
@@ -147,7 +149,7 @@ const HomeRegister = () => {
       <Row text={DISPLAY_NAME} required={true}>
         <TextField text={displayName} onChange={handleChangeTextField} />
       </Row>
-      <Row text="구성원" required={true}>
+      <Row text={MEMBER_TEXT} required={true}>
         <Container>
           {members.map((item) => {
             const { name, userId, imgUrl } = item;
@@ -176,7 +178,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="집안일" required={true}>
+      <Row text={WORK_TEXT} required={true}>
         <Container>
           <DeletableChipList
             type={'works'}
@@ -193,7 +195,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="공간" required={true}>
+      <Row text={SPACE_TEXT} required={true}>
         <Container>
           <DeletableChipList
             type={'spaces'}
@@ -210,7 +212,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="대상" required={false}>
+      <Row text={TARGET_ITEM_TEXT} required={false}>
         <Container>
           <DeletableChipList
             type={'items'}

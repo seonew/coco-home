@@ -93,28 +93,35 @@ const RegisterRefrigerator = () => {
 
   const validate = useCallback(
     (nextRefrigeratorFood) => {
-      const keys = Object.keys(nextRefrigeratorFood);
-      const result = keys.some((key) => {
-        if (
-          (key !== 'id' &&
-            key !== 'expirationDay' &&
-            (nextRefrigeratorFood[key] === '' ||
-              nextRefrigeratorFood[key] === 0)) ||
-          (key === 'expirationDay' &&
-            nextRefrigeratorFood[key] === 0 &&
-            !showCalendar)
-        ) {
-          showAlertModal(getMessage(key));
-          return true;
-        }
-
-        if (key !== 'homeId' && nextRefrigeratorFood[key].length > 11) {
-          showAlertModal('10글자 이하로 입력해주세요.');
-          return true;
-        }
+      const targetKeysWithStringValues = ['space', 'targetItem'];
+      const invalidKeyWithStringValues = targetKeysWithStringValues.find(
+        (key) => nextRefrigeratorFood[key].length === 0
+      );
+      if (invalidKeyWithStringValues) {
+        showAlertModal(getMessage(invalidKeyWithStringValues));
         return false;
-      });
-      return result;
+      }
+
+      if (nextRefrigeratorFood['targetItem'].length > 11) {
+        showAlertModal('10글자 이하로 입력해주세요.');
+        return false;
+      }
+
+      const targetKeysWithNumberValues = ['count', 'priority'];
+      const invalidKeyWithNumberValues = targetKeysWithNumberValues.find(
+        (key) => nextRefrigeratorFood[key] === 0
+      );
+      if (invalidKeyWithNumberValues) {
+        showAlertModal(getMessage(invalidKeyWithNumberValues));
+        return false;
+      }
+
+      if (!showCalendar && nextRefrigeratorFood['expirationDay'] === 0) {
+        showAlertModal(getMessage('expirationDay'));
+        return false;
+      }
+
+      return true;
     },
     [showAlertModal, showCalendar]
   );
@@ -131,7 +138,7 @@ const RegisterRefrigerator = () => {
       expirationDay: expirationDay,
     };
 
-    if (validate(nextRefrigeratorFood)) {
+    if (!validate(nextRefrigeratorFood)) {
       return;
     }
 
