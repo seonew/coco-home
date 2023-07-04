@@ -4,15 +4,10 @@ import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
 import {
-  ADDED_DATE,
-  ADDED_EXPIRATION_DATE,
-  COUNTER,
+  TextMessages,
   PAGE_PATH,
-  PRIORITY,
   REFRIGERATOR_SPACES,
-  SPACE,
-  TARGET_ITEM,
-  pageNameByPathName,
+  PageNameByPathName,
 } from 'constants/index';
 import { RefrigeratorFood } from 'types';
 import { getMessage } from 'utils/common';
@@ -40,6 +35,7 @@ const RegisterRefrigerator = () => {
   const [priority, setPriority] = useState(0);
   const [date, setDate] = useState(new Date());
   const [expirationDay, setExpirationDay] = useState(0);
+  const [selectedToggle, setSelectedToggle] = useState('dday');
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
   );
@@ -74,6 +70,8 @@ const RegisterRefrigerator = () => {
 
   const handleChangeToggle = useCallback(
     (current) => {
+      setSelectedToggle(current);
+
       if (current === 'calendar') {
         setExpirationDay(0);
       } else {
@@ -158,10 +156,10 @@ const RegisterRefrigerator = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.REFRIGERATOR_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.REFRIGERATOR_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={SPACE} required={true}>
+      <Row text={TextMessages.SPACE} required={true}>
         <ChipList
           type={'space'}
           items={REFRIGERATOR_SPACES}
@@ -169,25 +167,25 @@ const RegisterRefrigerator = () => {
           onClickItem={handleClickSpace}
         />
       </Row>
-      <Row text={TARGET_ITEM} required={true}>
+      <Row text={TextMessages.TARGET_ITEM} required={true}>
         <TextField onChange={handleChangeTextField} />
       </Row>
-      <Row text={COUNTER} required={true}>
+      <Row text={TextMessages.COUNTER} required={true}>
         <Counter onClickItem={handleClickCount} />
       </Row>
-      <Row text={PRIORITY} required={true}>
+      <Row text={TextMessages.PRIORITY} required={true}>
         <Rating onClickItem={handleClickPriority} />
       </Row>
       <div>
-        <Toggle onChange={handleChangeToggle} />
+        <Toggle selectedItem={selectedToggle} onChange={handleChangeToggle} />
         {showCalendar ? (
-          <Row text={ADDED_DATE} required={true}>
+          <Row text={TextMessages.ADDED_DATE} required={true}>
             <DatePicker onClickItem={handleClickDate} />
           </Row>
         ) : (
-          <Row text={ADDED_EXPIRATION_DATE} required={true}>
+          <Row text={TextMessages.ADDED_EXPIRATION_DATE} required={true}>
             <ExpirationDay
-              text={expirationDay}
+              day={expirationDay}
               onChange={handleChangeExpirationDay}
             />
           </Row>

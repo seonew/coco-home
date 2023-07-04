@@ -1,16 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'stores';
-import {
-  CYCLE,
-  DATE,
-  MEMBER,
-  PAGE_PATH,
-  SPACE,
-  TARGET_ITEM,
-  WORK,
-  pageNameByPathName,
-} from 'constants/index';
+import { TextMessages, PAGE_PATH, PageNameByPathName } from 'constants/index';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
 import {
@@ -183,10 +174,10 @@ const TaskRegister = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.HOME_TASK_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.HOME_TASK_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={MEMBER} required={true}>
+      <Row text={TextMessages.MEMBER} required={true}>
         {members.map((member) => {
           return (
             <ChipContainer key={member.userId}>
@@ -210,7 +201,7 @@ const TaskRegister = () => {
           );
         })}
       </Row>
-      <Row text={WORK} required={true}>
+      <Row text={TextMessages.WORK} required={true}>
         <ChipList
           type={'work'}
           items={works}
@@ -218,7 +209,7 @@ const TaskRegister = () => {
           onClickItem={handleClickItem}
         />
       </Row>
-      <Row text={SPACE} required={true}>
+      <Row text={TextMessages.SPACE} required={true}>
         <ChipList
           type={'space'}
           items={spaces}
@@ -227,7 +218,7 @@ const TaskRegister = () => {
         />
       </Row>
       {(items.length as number) > 0 ? (
-        <Row text={TARGET_ITEM} required={false}>
+        <Row text={TextMessages.TARGET_ITEM} required={false}>
           <ChipList
             type={'targetItem'}
             items={items}
@@ -239,10 +230,10 @@ const TaskRegister = () => {
         ''
       )}
 
-      <Row text={DATE} required={true}>
+      <Row text={TextMessages.DATE} required={true}>
         <DatePicker date={selectedContent.date} onClickItem={handleClickDate} />
       </Row>
-      <Row text={CYCLE} required={false}>
+      <Row text={TextMessages.CYCLE} required={false}>
         <ToggleContainer>
           <Toggle onChange={handleClickToggle} checked={showCycle} />
         </ToggleContainer>

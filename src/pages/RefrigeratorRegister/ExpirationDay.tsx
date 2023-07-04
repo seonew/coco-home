@@ -1,8 +1,8 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
 interface ExpirationDayProps {
-  text?: number;
+  day?: number;
   onChange: (next: number) => void;
 }
 
@@ -20,8 +20,7 @@ const Input = styled.input`
   width: 50px;
 `;
 
-const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
-  const [value, setValue] = useState<number>();
+const ExpirationDay = ({ day, onChange }: ExpirationDayProps) => {
   const handleChangeTextField = useCallback(
     (e) => {
       const current = e.target.value;
@@ -29,7 +28,6 @@ const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
         return;
       }
       const result = parseInt(current, 10) || 0;
-      setValue(result);
       onChange(result);
     },
     [onChange]
@@ -40,7 +38,7 @@ const ExpirationDay = ({ text, onChange }: ExpirationDayProps) => {
       <Input
         type="number"
         pattern="\d*"
-        value={text ?? value}
+        value={day}
         onChange={handleChangeTextField}
       />
       <span className="ml5">일</span>

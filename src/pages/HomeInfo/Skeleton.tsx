@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Box, Skeleton as SkeletonMUI, Typography } from '@material-ui/core';
 
 const Skeleton = () => {
@@ -28,4 +27,4 @@ const Skeleton = () => {
   );
 };
 
-export default memo(Skeleton);
+export default Skeleton;

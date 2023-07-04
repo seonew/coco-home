@@ -3,11 +3,15 @@ import { TextField as MuiTextField } from '@material-ui/core';
 
 interface MultiTextFieldProps {
   name: string;
-  text?: string;
+  defaultValue?: string;
   onChange: (type: string, next: string) => void;
 }
 
-const MultiTextField = ({ name, text, onChange }: MultiTextFieldProps) => {
+const MultiTextField = ({
+  name,
+  defaultValue,
+  onChange,
+}: MultiTextFieldProps) => {
   const [value, setValue] = useState('');
 
   const handleChangeTextField = useCallback(
@@ -23,7 +27,7 @@ const MultiTextField = ({ name, text, onChange }: MultiTextFieldProps) => {
     <MuiTextField
       id="outlined-basic"
       size="small"
-      value={text ?? value}
+      value={defaultValue ?? value}
       onChange={handleChangeTextField}
       placeholder="여기에 입력해주세요."
       fullWidth

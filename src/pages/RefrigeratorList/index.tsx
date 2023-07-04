@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { HomeListItem, RefrigeratorFood } from 'types';
-import { PAGE_PATH, TextType, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, TextType, PageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
 import List from './List';
@@ -55,10 +55,10 @@ const RegisterRefrigeratorList = () => {
     (state) => state.app.currentHome.id
   );
   const loading = useSelector<RootState, boolean>((state) => state.app.loading);
-  const [filterType, setFilterType] = useState('normal');
   const homeList = useSelector<RootState, HomeListItem[] | null>(
     (state) => state.mypage.homeList
   );
+  const [filterType, setFilterType] = useState('normal');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -98,14 +98,17 @@ const RegisterRefrigeratorList = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[PAGE_PATH.REFRIGERATOR_LIST]} />
+      <Header text={PageNameByPathName[PAGE_PATH.REFRIGERATOR_LIST]} />
       {homeId ? (
         <Container>
           {loading ? (
             <Skeleton />
           ) : (
             <List items={nextRefrigeratorFoods ?? currentRefrigeratorFoods}>
-              <Toggle onChange={handleChangeFilterType} />
+              <Toggle
+                selectedItem={filterType}
+                onChange={handleChangeFilterType}
+              />
             </List>
           )}
           <FloatingButton

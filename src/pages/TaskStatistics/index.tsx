@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from './stores/slice';
 import { RootState } from 'stores';
 import { StatisticsByHomeTask } from 'types';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, PageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
 import SquareColorRound from 'components/SquareColorRound';
@@ -66,7 +66,7 @@ const TaskStatistics = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[PAGE_PATH.HOME_TASK_STATISTICS]} />
+      <Header text={PageNameByPathName[PAGE_PATH.HOME_TASK_STATISTICS]} />
       <Container>
         <SquareColorRound
           text={'사용자'}

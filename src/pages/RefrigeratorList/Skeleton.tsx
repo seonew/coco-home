@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Box, Skeleton } from '@material-ui/core';
 
 const LoadingRefrigeratorList = () => {
@@ -26,4 +25,4 @@ const LoadingRefrigeratorList = () => {
   );
 };
 
-export default memo(LoadingRefrigeratorList);
+export default LoadingRefrigeratorList;

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { HomeTask } from 'types';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, PageNameByPathName } from 'constants/index';
 
 import styled from 'styled-components';
 import List from './List';
@@ -39,7 +39,7 @@ const TaskDetail = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[PAGE_PATH.HOME_TASK_DETAIL]} />
+      <Header text={PageNameByPathName[PAGE_PATH.HOME_TASK_DETAIL]} />
       {loading ? <Skeleton /> : <List items={currentHomeTasks} />}
     </Root>
   );

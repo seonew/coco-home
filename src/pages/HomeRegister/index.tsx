@@ -5,13 +5,13 @@ import { actions as appActions } from 'stores/slice';
 import { actions } from './stores/slice';
 import { Home } from 'types';
 import {
-  DISPLAY_NAME,
+  TextMessages,
   MEMBER_TEXT,
   PAGE_PATH,
   SPACE_TEXT,
   TARGET_ITEM_TEXT,
   WORK_TEXT,
-  pageNameByPathName,
+  PageNameByPathName,
 } from 'constants/index';
 import { getMessage } from 'utils/common';
 
@@ -143,11 +143,14 @@ const HomeRegister = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.HOME_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.HOME_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={DISPLAY_NAME} required={true}>
-        <TextField text={displayName} onChange={handleChangeTextField} />
+      <Row text={TextMessages.DISPLAY_NAME} required={true}>
+        <TextField
+          defaultValue={displayName}
+          onChange={handleChangeTextField}
+        />
       </Row>
       <Row text={MEMBER_TEXT} required={true}>
         <Container>

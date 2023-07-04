@@ -1,9 +1,10 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import styled from 'styled-components';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 interface ToggleProps {
+  selectedItem: string;
   onChange: (next: string) => void;
 }
 
@@ -14,13 +15,10 @@ const Root = styled.div`
   margin-bottom: 10px;
 `;
 
-const Toggle = ({ onChange }: ToggleProps) => {
-  const [item, setItem] = useState('normal');
-
-  const handleChange = useCallback(
+const Toggle = ({ selectedItem, onChange }: ToggleProps) => {
+  const handleChangeItem = useCallback(
     (e) => {
       const current = e.target.value;
-      setItem(current);
       onChange(current);
     },
     [onChange]
@@ -31,9 +29,9 @@ const Toggle = ({ onChange }: ToggleProps) => {
       <ToggleButtonGroup
         size="small"
         color="primary"
-        value={item}
+        value={selectedItem}
         exclusive
-        onChange={handleChange}
+        onChange={handleChangeItem}
       >
         <ToggleButton value="normal">전체</ToggleButton>
         <ToggleButton value="dday">디데이</ToggleButton>

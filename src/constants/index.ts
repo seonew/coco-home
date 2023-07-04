@@ -3,13 +3,6 @@ export const WORK_TEXT = '집안일';
 export const SPACE_TEXT = '공간';
 export const TARGET_ITEM_TEXT = '대상';
 
-export const DISPLAY_NAME = '우리집 이름을 등록해 주세요.';
-export const MEMBER = '누가 했나요?';
-export const WORK = '무엇을 했나요?';
-export const SPACE = '어떤 공간인가요?';
-export const TARGET_ITEM = '어떤 것인가요?';
-export const DATE = '언제 했나요?';
-export const CYCLE = '어떤 주기마다 안내할까요?';
 export const HOME = {
   SPACES: ['주방', '화장실', '베란다'],
   WORKS: ['설거지', '청소', '교체', '분리수거'],
@@ -22,11 +15,20 @@ export enum TextType {
   REGISTER,
 }
 
-// REFRIGERATOR
-export const ADDED_DATE = '언제 추가했나요?';
-export const ADDED_EXPIRATION_DATE = '얼마나 보관 예정인가요?';
-export const PRIORITY = '우선 순위가 어느 정도인가요?';
-export const COUNTER = '남은 수량이 몇 개인가요?';
+export const TextMessages = {
+  DISPLAY_NAME: '우리집 이름을 등록해 주세요.',
+  MEMBER: '누가 했나요?',
+  WORK: '무엇을 했나요?',
+  SPACE: '어떤 공간인가요?',
+  TARGET_ITEM: '어떤 것인가요?',
+  DATE: '언제 했나요?',
+  CYCLE: '어떤 주기마다 안내할까요?',
+
+  ADDED_DATE: '언제 추가했나요?',
+  ADDED_EXPIRATION_DATE: '얼마나 보관 예정인가요?',
+  PRIORITY: '우선 순위가 어느 정도인가요?',
+  COUNTER: '남은 수량이 몇 개인가요?',
+};
 
 export const CALENDAR = {
   NUMBERS: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -69,7 +71,7 @@ export const PAGE_PATH = {
   AUTH_CALLBACK_GUEST: '/callback/guest',
 };
 
-export const pageNameByPathName = {
+export const PageNameByPathName = {
   [PAGE_PATH.SEARCH_HOME_TASK_LIST]: '검색 결과',
   [PAGE_PATH.REFRIGERATOR_REGISTER]: '음식 등록',
   [PAGE_PATH.REFRIGERATOR_LIST]: '음식들',

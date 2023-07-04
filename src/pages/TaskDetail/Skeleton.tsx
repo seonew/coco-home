@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Box, Skeleton } from '@material-ui/core';
 
 const LoadingTaskDetail = () => {
@@ -21,4 +20,4 @@ const LoadingTaskDetail = () => {
   );
 };
 
-export default memo(LoadingTaskDetail);
+export default LoadingTaskDetail;
