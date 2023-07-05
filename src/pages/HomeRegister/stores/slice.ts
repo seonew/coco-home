@@ -3,7 +3,7 @@ import { Home, HomeMember } from 'types';
 import { HOME } from 'constants/index';
 
 export interface State {
-  nextHome: Home;
+  currentHome: Home;
   currentType: string;
   searchMembers: HomeMember[] | null;
   memberListModal: { open: boolean };
@@ -11,7 +11,7 @@ export interface State {
 }
 
 const initialState: State = {
-  nextHome: {
+  currentHome: {
     id: '',
     displayName: '',
     spaces: HOME.SPACES,
@@ -31,16 +31,16 @@ const homeRegisterSlice = createSlice({
   reducers: {
     addHomeMembers: (state, action) => {},
     addHomeMembersSuccess: (state, action: PayloadAction<HomeMember[]>) => {
-      state.nextHome.members = action.payload;
+      state.currentHome.members = action.payload;
       state.searchMembers = null;
     },
     addHomeMembersFailed: (state, action) => {},
     removeHomeMembers: (state, action: PayloadAction<string>) => {
-      const members = state.nextHome.members;
+      const members = state.currentHome.members;
       const userId = action.payload;
       const nextItems = members.filter((element) => element.userId !== userId);
 
-      state.nextHome.members = nextItems;
+      state.currentHome.members = nextItems;
     },
 
     setOpenMemberListModal: (state, action: PayloadAction<boolean>) => {
@@ -60,56 +60,56 @@ const homeRegisterSlice = createSlice({
 
     initialize: (state) => {},
     initializeSuccess: (state, action: PayloadAction<Home>) => {
-      state.nextHome = action.payload;
+      state.currentHome = action.payload;
       state.searchMembers = null;
       state.currentType = '';
     },
     initializeFailed: (state, action) => {},
 
-    addNextHomeItem: (state, action) => {},
-    removeNextHomeItem: (state, action) => {},
+    addCurrentHomeItem: (state, action) => {},
+    removeCurrentHomeItem: (state, action) => {},
     addHomeSpaces: (state, action: PayloadAction<string>) => {
-      const nextHomeSpaces = state.nextHome.spaces;
+      const currentHomeSpaces = state.currentHome.spaces;
       const text = action.payload;
 
-      nextHomeSpaces.push(text);
+      currentHomeSpaces.push(text);
     },
     removeHomeSpaces: (state, action: PayloadAction<string>) => {
-      const nextHomeSpaces = state.nextHome.spaces;
+      const currentHomeSpaces = state.currentHome.spaces;
       const text = action.payload;
 
-      const index = nextHomeSpaces.findIndex((element) => element === text);
-      nextHomeSpaces.splice(index, 1);
+      const index = currentHomeSpaces.findIndex((element) => element === text);
+      currentHomeSpaces.splice(index, 1);
     },
     addHomeWorks: (state, action: PayloadAction<string>) => {
-      const nextHomeWorks = state.nextHome.works;
+      const currentHomeWorks = state.currentHome.works;
       const text = action.payload;
 
-      nextHomeWorks.push(text);
+      currentHomeWorks.push(text);
     },
     removeHomeWorks: (state, action: PayloadAction<string>) => {
-      const nextHomeWorks = state.nextHome.works;
+      const currentHomeWorks = state.currentHome.works;
       const text = action.payload;
 
-      const index = nextHomeWorks.findIndex((element) => element === text);
-      nextHomeWorks.splice(index, 1);
+      const index = currentHomeWorks.findIndex((element) => element === text);
+      currentHomeWorks.splice(index, 1);
     },
     addHomeItems: (state, action: PayloadAction<string>) => {
-      const nextHomeItems = state.nextHome.items;
+      const currentHomeItems = state.currentHome.items;
       const text = action.payload;
 
-      nextHomeItems.push(text);
+      currentHomeItems.push(text);
     },
     removeHomeItems: (state, action: PayloadAction<string>) => {
-      const nextHomeItems = state.nextHome.items;
+      const currentHomeItems = state.currentHome.items;
       const text = action.payload;
 
-      const index = nextHomeItems.findIndex((element) => element === text);
-      nextHomeItems.splice(index, 1);
+      const index = currentHomeItems.findIndex((element) => element === text);
+      currentHomeItems.splice(index, 1);
     },
     insertMyHomeRegister: (state, action) => {},
     insertMyHomeRegisterSuccess: (state) => {
-      state.nextHome = {
+      state.currentHome = {
         id: '',
         displayName: '',
         spaces: HOME.SPACES,
@@ -121,7 +121,7 @@ const homeRegisterSlice = createSlice({
     insertMyHomeRegisterFailed: (state, action) => {},
     updateMyHomeRegister: (state, action) => {},
     updateMyHomeRegisterSuccess: (state) => {
-      state.nextHome = {
+      state.currentHome = {
         id: '',
         displayName: '',
         spaces: HOME.SPACES,
@@ -135,7 +135,7 @@ const homeRegisterSlice = createSlice({
       state.currentType = action.payload;
     },
     setDisplayName: (state, action: PayloadAction<string>) => {
-      state.nextHome.displayName = action.payload;
+      state.currentHome.displayName = action.payload;
     },
   },
 });

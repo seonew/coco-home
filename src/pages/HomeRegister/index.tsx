@@ -45,14 +45,14 @@ const buttonStyle: CSSProperties = {
 };
 
 const HomeRegister = () => {
-  const nextHome = useSelector<RootState, Home>(
-    (state) => state.homeRegister.nextHome
+  const currentHome = useSelector<RootState, Home>(
+    (state) => state.homeRegister.currentHome
   );
-  const displayName = nextHome.displayName;
-  const works = nextHome.works;
-  const members = nextHome.members;
-  const spaces = nextHome.spaces;
-  const items = nextHome.items;
+  const displayName = currentHome.displayName;
+  const works = currentHome.works;
+  const members = currentHome.members;
+  const spaces = currentHome.spaces;
+  const items = currentHome.items;
   const openMemberListModal = useSelector<RootState, boolean>(
     (state) => state.homeRegister.memberListModal.open
   );
@@ -71,7 +71,7 @@ const HomeRegister = () => {
 
   const handleDeleteDialogContent = useCallback(
     (currentType, text) => {
-      dispatch(actions.removeNextHomeItem({ currentType, text }));
+      dispatch(actions.removeCurrentHomeItem({ currentType, text }));
     },
     [dispatch]
   );
@@ -106,7 +106,7 @@ const HomeRegister = () => {
   );
 
   const validate = useCallback(() => {
-    if (nextHome.displayName === '') {
+    if (currentHome.displayName === '') {
       showAlertModal(getMessage('displayName'));
       return false;
     }
@@ -119,22 +119,22 @@ const HomeRegister = () => {
     }
 
     const targetKeys = ['members', 'works', 'spaces'];
-    const invalidKey = targetKeys.find((key) => nextHome[key].length === 0);
+    const invalidKey = targetKeys.find((key) => currentHome[key].length === 0);
     if (invalidKey) {
       showAlertModal(getMessage(invalidKey));
       return false;
     }
 
     return true;
-  }, [members, nextHome, showAlertModal]);
+  }, [members, currentHome, showAlertModal]);
 
   const handleSaveContents = useCallback(() => {
     if (!validate()) {
       return;
     }
 
-    dispatch(actions.insertMyHomeRegister(nextHome));
-  }, [dispatch, nextHome, validate]);
+    dispatch(actions.insertMyHomeRegister(currentHome));
+  }, [dispatch, currentHome, validate]);
 
   useEffect(() => {
     dispatch(actions.initialize());

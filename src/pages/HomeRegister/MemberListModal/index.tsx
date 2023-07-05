@@ -25,9 +25,9 @@ const MemberListModal = ({ open }: MemberListModalProps) => {
     (state) => state.homeRegister.searchMembers
   );
   const members = useSelector<RootState, HomeMember[]>(
-    (state) => state.homeRegister.nextHome.members
+    (state) => state.homeRegister.currentHome.members
   );
-  const [nextMembers, setNextMembers] = useState<HomeMember[]>([]);
+  const [currentMembers, setCurrentMembers] = useState<HomeMember[]>([]);
 
   const handleClose = useCallback(() => {
     dispatch(actions.setOpenMemberListModal(!open));
@@ -41,12 +41,12 @@ const MemberListModal = ({ open }: MemberListModalProps) => {
   );
 
   const handleClickItem = useCallback(() => {
-    if (nextMembers.length === 0) {
+    if (currentMembers.length === 0) {
       showAlertModal('추가할 사용자를 선택해 주세요.');
       return;
     }
 
-    const result = nextMembers.reduce((result: HomeMember[], member) => {
+    const result = currentMembers.reduce((result: HomeMember[], member) => {
       const { name, type, userId, imgUrl } = member;
 
       const foundMember = members.find((current) => current.userId === userId);
@@ -61,9 +61,9 @@ const MemberListModal = ({ open }: MemberListModalProps) => {
 
     dispatch(actions.addHomeMembers(result));
 
-    setNextMembers([]);
+    setCurrentMembers([]);
     handleClose();
-  }, [dispatch, handleClose, members, nextMembers, showAlertModal]);
+  }, [dispatch, handleClose, members, currentMembers, showAlertModal]);
 
   const handleClickSearchItem = useCallback(
     (text) => {
@@ -75,15 +75,15 @@ const MemberListModal = ({ open }: MemberListModalProps) => {
   const handleClickMember = useCallback(
     (item, checked) => {
       if (checked) {
-        setNextMembers([...nextMembers, item]);
+        setCurrentMembers([...currentMembers, item]);
       } else {
-        const nextItems = nextMembers.filter(
+        const nextMembers = currentMembers.filter(
           (element) => element.userId !== item.userId
         );
-        setNextMembers(nextItems);
+        setCurrentMembers(nextMembers);
       }
     },
-    [nextMembers]
+    [currentMembers]
   );
 
   return (

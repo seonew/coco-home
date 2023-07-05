@@ -150,7 +150,7 @@ function* searchMemberUser(action) {
     );
     const result: HomeMember[] = response.data;
     const members = yield select(
-      (state: RootState) => state.homeRegister.nextHome.members
+      (state: RootState) => state.homeRegister.currentHome.members
     );
     let nextItems: HomeMember[] = [];
 
@@ -182,7 +182,7 @@ function* addHomeMembers(action) {
 
   try {
     const memberList: HomeMember[] = yield select(
-      (state: RootState) => state.homeRegister.nextHome.members
+      (state: RootState) => state.homeRegister.currentHome.members
     );
 
     const newMemberList = [...memberList];
@@ -198,10 +198,10 @@ function* addHomeMembers(action) {
 }
 
 export function* watchAddHomeItem() {
-  yield takeLatest(actions.addNextHomeItem, addNextHomeItem);
+  yield takeLatest(actions.addCurrentHomeItem, addCurrentHomeItem);
 }
 
-function* addNextHomeItem(action) {
+function* addCurrentHomeItem(action) {
   const { currentType, text } = action.payload;
 
   try {
@@ -219,10 +219,10 @@ function* addNextHomeItem(action) {
 }
 
 export function* watchRemoveHomeItem() {
-  yield takeLatest(actions.removeNextHomeItem, removeNextHomeItem);
+  yield takeLatest(actions.removeCurrentHomeItem, removeCurrentHomeItem);
 }
 
-function* removeNextHomeItem(action) {
+function* removeCurrentHomeItem(action) {
   const { currentType, text } = action.payload;
 
   try {
