@@ -6,7 +6,7 @@ export interface State {
 }
 
 const initialState: State = {
-  statistics: { key: [], count: [] },
+  statistics: { keys: [], counts: [] },
 };
 
 const taskStatisticsSlice = createSlice({
@@ -18,8 +18,8 @@ const taskStatisticsSlice = createSlice({
       state,
       action: PayloadAction<StatisticsByHomeTask>
     ) => {
-      state.statistics.key = action.payload.key;
-      state.statistics.count = action.payload.count;
+      state.statistics.keys = action.payload.keys;
+      state.statistics.counts = action.payload.counts;
     },
     fetchHomeTaskStatisticsItemFailed: (state, action) => {},
   },

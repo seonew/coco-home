@@ -30,6 +30,21 @@ export const TextMessages = {
   COUNTER: '남은 수량이 몇 개인가요?',
 };
 
+export const TextMessagesForStatisticsByType = {
+  MEMBER: {
+    title: '누가 얼마나 참여했나요?',
+    description: '가장 많은 참여를 한 사람은',
+  },
+  ITEM: {
+    title: '가장 많이 관리한 것은?',
+    description: '가장 많이 관리한 대상은',
+  },
+  WORK: {
+    title: '가장 많이 한 것은?',
+    description: '가장 많이 한 일은',
+  },
+};
+
 export const CALENDAR = {
   NUMBERS: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   UNITS: {
@@ -84,7 +99,7 @@ export const PageNameByPathName = {
   [PAGE_PATH.MAIN]: '코코홈',
 };
 
-export const chart = {
+export const CHART = {
   BACKGROUND_COLOR: [
     'rgb(255, 99, 132)',
     'rgb(255, 159, 64)',

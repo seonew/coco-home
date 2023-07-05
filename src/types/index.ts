@@ -56,8 +56,8 @@ export interface HomeAlert extends HomeTask {
 }
 
 export interface StatisticsByHomeTask {
-  key: string[];
-  count: number[];
+  keys: string[];
+  counts: number[];
 }
 
 export interface HomeTasksByDate {
