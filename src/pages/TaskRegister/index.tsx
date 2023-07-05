@@ -1,16 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'stores';
-import {
-  CYCLE,
-  DATE,
-  MEMBER,
-  PAGE_PATH,
-  SPACE,
-  TARGET_ITEM,
-  WORK,
-  pageNameByPathName,
-} from 'constants/index';
+import { TextMessages, PAGE_PATH, PageNameByPathName } from 'constants/index';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
 import {
@@ -40,10 +31,6 @@ const ChipContainer = styled.div`
   margin: 4px 3px;
 `;
 
-const Inline = styled.div`
-  display: inline-block;
-`;
-
 const ToggleContainer = styled.div`
   position: relative;
   float: right;
@@ -51,8 +38,8 @@ const ToggleContainer = styled.div`
 `;
 
 const TaskRegister = () => {
-  const edtied = useSelector<RootState, boolean>(
-    (state) => state.taskRegister.edit
+  const edited = useSelector<RootState, boolean>(
+    (state) => state.taskRegister.edited
   );
   const currentHome = useSelector<RootState, Home>(
     (state) => state.app.currentHome
@@ -155,44 +142,45 @@ const TaskRegister = () => {
   );
 
   const validate = useCallback(() => {
-    const keys = Object.keys(selectedContent);
-    const result = keys.some((key) => {
-      if (
-        (key !== 'id' &&
-          key !== 'targetItem' &&
-          selectedContent[key] === undefined) ||
-        (key === 'member' && selectedContent[key].name === undefined)
-      ) {
-        showAlertModal(getMessage(key));
-        return true;
-      }
+    if (selectedContent['member'].name === undefined) {
+      showAlertModal(getMessage('member'));
       return false;
-    });
-    return result;
+    }
+
+    const targetKeys = ['work', 'space', 'date'];
+    const invalidKey = targetKeys.find(
+      (key) => selectedContent[key] === undefined
+    );
+    if (invalidKey) {
+      showAlertModal(getMessage(invalidKey));
+      return false;
+    }
+
+    return true;
   }, [selectedContent, showAlertModal]);
 
   const handleSaveContents = useCallback(() => {
-    if (validate()) {
+    if (!validate()) {
       return;
     }
 
-    if (edtied) {
+    if (edited) {
       dispatch(actions.updateTaskRegister(selectedContent));
     } else {
       dispatch(actions.insertTaskRegister(selectedContent));
     }
-  }, [dispatch, edtied, selectedContent, validate]);
+  }, [dispatch, edited, selectedContent, validate]);
 
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.HOME_TASK_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.HOME_TASK_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={MEMBER} required={true}>
-        {members.map((member, index) => {
+      <Row text={TextMessages.MEMBER} required={true}>
+        {members.map((member) => {
           return (
-            <ChipContainer key={index}>
+            <ChipContainer key={member.userId}>
               {selectedContent.member.id === member.userId ? (
                 <Chip
                   avatar={<Avatar alt={member.name} src={member.imgUrl} />}
@@ -213,7 +201,7 @@ const TaskRegister = () => {
           );
         })}
       </Row>
-      <Row text={WORK} required={true}>
+      <Row text={TextMessages.WORK} required={true}>
         <ChipList
           type={'work'}
           items={works}
@@ -221,7 +209,7 @@ const TaskRegister = () => {
           onClickItem={handleClickItem}
         />
       </Row>
-      <Row text={SPACE} required={true}>
+      <Row text={TextMessages.SPACE} required={true}>
         <ChipList
           type={'space'}
           items={spaces}
@@ -230,7 +218,7 @@ const TaskRegister = () => {
         />
       </Row>
       {(items.length as number) > 0 ? (
-        <Row text={TARGET_ITEM} required={false}>
+        <Row text={TextMessages.TARGET_ITEM} required={false}>
           <ChipList
             type={'targetItem'}
             items={items}
@@ -242,10 +230,10 @@ const TaskRegister = () => {
         ''
       )}
 
-      <Row text={DATE} required={true}>
+      <Row text={TextMessages.DATE} required={true}>
         <DatePicker date={selectedContent.date} onClickItem={handleClickDate} />
       </Row>
-      <Row text={CYCLE} required={false}>
+      <Row text={TextMessages.CYCLE} required={false}>
         <ToggleContainer>
           <Toggle onChange={handleClickToggle} checked={showCycle} />
         </ToggleContainer>
@@ -253,19 +241,19 @@ const TaskRegister = () => {
           <Button
             variant="contained"
             size="small"
-            style={{ marginRight: '5px' }}
+            className="mr5"
             onClick={handleClickOpenSelectCycleModal}
           >
             {selectedContent.cycle.value}
           </Button>
-          <Inline>
+          <div className="inline-block">
             <ChipList
               type={'unit'}
               items={units}
               selectedItem={getUnitCodeToString(selectedContent.cycle.unit)}
               onClickItem={handleChangeSelectedCycle}
             />
-          </Inline>
+          </div>
         </div>
       </Row>
       <SelectCycleModal

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface RowProps {
   text: string;
-  required: boolean;
+  required?: boolean;
   children?: ReactNode;
 }
 
@@ -27,7 +27,7 @@ const Row = ({ text, required, children }: RowProps) => {
   return (
     <Root data-cy="row">
       <Title>
-        {required && <Asterisk>*&nbsp;</Asterisk>}
+        {required && <Asterisk className="mr5">*</Asterisk>}
         {text}
       </Title>
       {children}

@@ -2,17 +2,17 @@ import { memo, useState, useCallback } from 'react';
 import { TextField as MuiTextField } from '@material-ui/core';
 
 interface TextFieldProps {
-  text?: string;
+  defaultValue?: string;
   onChange: (next: string) => void;
 }
 
-const TextField = ({ text, onChange }: TextFieldProps) => {
-  const [item, setItem] = useState('');
+const TextField = ({ defaultValue, onChange }: TextFieldProps) => {
+  const [value, setValue] = useState('');
 
   const handleChangeTextField = useCallback(
     (e) => {
       const current = e.target.value;
-      setItem(current);
+      setValue(current);
       onChange(current);
     },
     [onChange]
@@ -22,7 +22,7 @@ const TextField = ({ text, onChange }: TextFieldProps) => {
     <MuiTextField
       id="outlined-basic"
       size="small"
-      value={text ?? item}
+      value={defaultValue ?? value}
       onChange={handleChangeTextField}
       placeholder="여기에 입력해주세요."
       fullWidth

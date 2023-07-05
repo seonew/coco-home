@@ -11,8 +11,8 @@ const initialState: State = {
   currentType: '',
 };
 
-const registerDetailSlice = createSlice({
-  name: 'registerDetail',
+const taskDetailSlice = createSlice({
+  name: 'taskDetailSlice',
   initialState,
   reducers: {
     deleteHomeTasks: (state, action) => {},
@@ -26,4 +26,4 @@ const registerDetailSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = registerDetailSlice;
+export const { actions, reducer } = taskDetailSlice;

@@ -4,7 +4,11 @@ import { useDispatch } from 'react-redux';
 import { actions } from './stores/slice';
 import { RootState } from 'stores';
 import { StatisticsByHomeTask } from 'types';
-import { PAGE_PATH, pageNameByPathName } from 'constants/index';
+import {
+  PAGE_PATH,
+  PageNameByPathName,
+  TextMessagesForStatisticsByType,
+} from 'constants/index';
 
 import styled from 'styled-components';
 import SquareColorRound from 'components/SquareColorRound';
@@ -37,7 +41,8 @@ const TaskStatistics = () => {
   const statistics = useSelector<RootState, StatisticsByHomeTask>(
     (state) => state.taskStatistics.statistics
   );
-  const { key } = statistics;
+  const { keys } = statistics;
+  console.log(keys);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,16 +53,9 @@ const TaskStatistics = () => {
 
   const handleClickStatistics = useCallback(
     (newType) => () => {
-      if (newType === 'MEMBER') {
-        setTitle('누가 얼마나 참여했나요?');
-        setDescription('가장 많은 참여를 한 사람은');
-      } else if (newType === 'ITEM') {
-        setTitle('가장 많이 관리한 것은?');
-        setDescription('가장 많이 관리한 대상은');
-      } else if (newType === 'WORK') {
-        setTitle('가장 많이 한 것은?');
-        setDescription('가장 많이 한 일은');
-      }
+      const { title, description } = TextMessagesForStatisticsByType[newType];
+      setTitle(title);
+      setDescription(description);
       setType(newType);
       dispatch(actions.fetchHomeTaskStatisticsItem(newType));
     },
@@ -66,7 +64,7 @@ const TaskStatistics = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[PAGE_PATH.HOME_TASK_STATISTICS]} />
+      <Header text={PageNameByPathName[PAGE_PATH.HOME_TASK_STATISTICS]} />
       <Container>
         <SquareColorRound
           text={'사용자'}
@@ -84,7 +82,7 @@ const TaskStatistics = () => {
           onClickItem={handleClickStatistics('ITEM')}
         />
       </Container>
-      {key.length > 0 ? (
+      {keys.length > 0 ? (
         <Container>
           <Contents title={title} description={description} />
         </Container>

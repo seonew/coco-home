@@ -154,8 +154,8 @@ const HomeInfo = () => {
               {refrigeratorSummary.map((element, index) => {
                 return (
                   <div key={index}>
-                    <span>
-                      {element._id} {element.count}개&nbsp;
+                    <span className="mr5">
+                      {element._id} {element.count}개
                     </span>
                   </div>
                 );

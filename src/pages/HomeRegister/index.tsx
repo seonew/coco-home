@@ -4,7 +4,15 @@ import { RootState } from 'stores';
 import { actions as appActions } from 'stores/slice';
 import { actions } from './stores/slice';
 import { Home } from 'types';
-import { DISPLAY_NAME, PAGE_PATH, pageNameByPathName } from 'constants/index';
+import {
+  TextMessages,
+  MEMBER_TEXT,
+  PAGE_PATH,
+  SPACE_TEXT,
+  TARGET_ITEM_TEXT,
+  WORK_TEXT,
+  PageNameByPathName,
+} from 'constants/index';
 import { getMessage } from 'utils/common';
 
 import styled from 'styled-components';
@@ -37,14 +45,14 @@ const buttonStyle: CSSProperties = {
 };
 
 const HomeRegister = () => {
-  const nextHome = useSelector<RootState, Home>(
-    (state) => state.homeRegister.nextHome
+  const currentHome = useSelector<RootState, Home>(
+    (state) => state.homeRegister.currentHome
   );
-  const displayName = nextHome.displayName;
-  const works = nextHome.works;
-  const members = nextHome.members;
-  const spaces = nextHome.spaces;
-  const items = nextHome.items;
+  const displayName = currentHome.displayName;
+  const works = currentHome.works;
+  const members = currentHome.members;
+  const spaces = currentHome.spaces;
+  const items = currentHome.items;
   const openMemberListModal = useSelector<RootState, boolean>(
     (state) => state.homeRegister.memberListModal.open
   );
@@ -63,7 +71,7 @@ const HomeRegister = () => {
 
   const handleDeleteDialogContent = useCallback(
     (currentType, text) => {
-      dispatch(actions.removeNextHomeItem({ currentType, text }));
+      dispatch(actions.removeCurrentHomeItem({ currentType, text }));
     },
     [dispatch]
   );
@@ -98,41 +106,35 @@ const HomeRegister = () => {
   );
 
   const validate = useCallback(() => {
-    const keys = Object.keys(nextHome);
-    let result = keys.some((key) => {
-      if (
-        (key === 'displayName' && nextHome.displayName === '') ||
-        ((key === 'spaces' || key === 'members' || key === 'works') &&
-          nextHome[key].length === 0)
-      ) {
-        showAlertModal(getMessage(key));
-        return true;
-      }
-
+    if (currentHome.displayName === '') {
+      showAlertModal(getMessage('displayName'));
       return false;
-    });
-
-    if (!result) {
-      const owner = members.some((member) => {
-        return member.type === 'owner';
-      });
-
-      if (!owner) {
-        showAlertModal('구성원에 본인을 포함해 주세요.');
-        result = true;
-      }
     }
 
-    return result;
-  }, [members, nextHome, showAlertModal]);
+    const isOwner =
+      members.findIndex((member) => member.type === 'owner') !== -1;
+    if (!isOwner) {
+      showAlertModal('구성원에 본인을 포함해 주세요.');
+      return false;
+    }
+
+    const targetKeys = ['members', 'works', 'spaces'];
+    const invalidKey = targetKeys.find((key) => currentHome[key].length === 0);
+    if (invalidKey) {
+      showAlertModal(getMessage(invalidKey));
+      return false;
+    }
+
+    return true;
+  }, [members, currentHome, showAlertModal]);
 
   const handleSaveContents = useCallback(() => {
-    if (validate()) {
+    if (!validate()) {
       return;
     }
 
-    dispatch(actions.insertMyHomeRegister(nextHome));
-  }, [dispatch, nextHome, validate]);
+    dispatch(actions.insertMyHomeRegister(currentHome));
+  }, [dispatch, currentHome, validate]);
 
   useEffect(() => {
     dispatch(actions.initialize());
@@ -141,13 +143,16 @@ const HomeRegister = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.HOME_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.HOME_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={DISPLAY_NAME} required={true}>
-        <TextField text={displayName} onChange={handleChangeTextField} />
+      <Row text={TextMessages.DISPLAY_NAME} required={true}>
+        <TextField
+          defaultValue={displayName}
+          onChange={handleChangeTextField}
+        />
       </Row>
-      <Row text="구성원" required={true}>
+      <Row text={MEMBER_TEXT} required={true}>
         <Container>
           {members.map((item) => {
             const { name, userId, imgUrl } = item;
@@ -176,7 +181,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="집안일" required={true}>
+      <Row text={WORK_TEXT} required={true}>
         <Container>
           <DeletableChipList
             type={'works'}
@@ -193,7 +198,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="공간" required={true}>
+      <Row text={SPACE_TEXT} required={true}>
         <Container>
           <DeletableChipList
             type={'spaces'}
@@ -210,7 +215,7 @@ const HomeRegister = () => {
           </ButtonContainer>
         </Container>
       </Row>
-      <Row text="대상" required={false}>
+      <Row text={TARGET_ITEM_TEXT} required={false}>
         <Container>
           <DeletableChipList
             type={'items'}

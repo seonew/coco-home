@@ -27,7 +27,11 @@ const Calendar = ({ year, month, items }: CalendarProps) => {
 
   const handleChangeMonth = useCallback(
     (year, month, actionType) => {
-      dispatch(actions.setYearMonth({ year, month, actionType }));
+      if (actionType === 'previous') {
+        dispatch(actions.goToPreviousMonth({ year, month }));
+      } else {
+        dispatch(actions.goToNextMonth({ year, month }));
+      }
     },
     [dispatch]
   );

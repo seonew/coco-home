@@ -6,6 +6,12 @@ import styled from 'styled-components';
 import githubIcon from '../assets/github-icon.svg';
 import kakaoTalkIcon from '../assets/kakaotalk-icon.png';
 import googleIcon from '../assets/google-icon.png';
+import {
+  CLIENT_ID,
+  KAKAO_CLIENT_ID,
+  KAKAO_REDIRECT_URI,
+  REDIRECT_URI,
+} from 'constants/index';
 
 const Root = styled.div`
   display: flex;
@@ -95,10 +101,6 @@ const ButtonToGuest = styled.a`
 `;
 
 const Login = () => {
-  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
   const url =
     'https://github.com/login/oauth/authorize?client_id=' +
     CLIENT_ID +

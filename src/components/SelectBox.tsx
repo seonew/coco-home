@@ -22,7 +22,7 @@ const SelectBox = ({
   };
 
   return (
-    <FormControl required style={{ marginRight: '5px' }}>
+    <FormControl required className="mr5">
       <Select
         labelId="item-select-label"
         id="item-select"
@@ -30,10 +30,10 @@ const SelectBox = ({
         onChange={handleChangeItem}
         displayEmpty
       >
-        {items.map((element, index) => {
+        {items.map((item, index) => {
           return (
-            <MenuItem key={index} value={element}>
-              {element}
+            <MenuItem key={index} value={item}>
+              {item}
             </MenuItem>
           );
         })}

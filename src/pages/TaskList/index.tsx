@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as taskRegisterActions } from '../TaskRegister/stores/slice';
-import { PAGE_PATH, TextType, pageNameByPathName } from 'constants/index';
+import { PAGE_PATH, TextType, PageNameByPathName } from 'constants/index';
 import styled from 'styled-components';
 import { HomeListItem, HomeTasksByDate } from 'types';
 
@@ -99,7 +99,7 @@ const TaskList = () => {
 
   return (
     <Root>
-      <Header text={pageNameByPathName[PAGE_PATH.HOME_TASK_LIST]} />
+      <Header text={PageNameByPathName[PAGE_PATH.HOME_TASK_LIST]} />
       {homeId ? (
         <Container>
           <Search

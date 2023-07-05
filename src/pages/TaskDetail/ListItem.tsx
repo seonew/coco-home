@@ -101,8 +101,8 @@ const ListItem = ({ item }: ListItemProps) => {
       <ContentDiv>
         <ContentInfo>
           <Text>
-            <span>{item.space}</span>
-            <span>&nbsp;{item.targetItem}</span>
+            <span className="mr5">{item.space}</span>
+            <span>{item.targetItem}</span>
           </Text>
           {item.cycle.unit !== '' && (
             <Text>

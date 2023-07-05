@@ -3,13 +3,13 @@ import { HomeTask } from 'types';
 
 export interface State {
   selectedItem: HomeTask | null;
-  edit: boolean;
+  edited: boolean;
   selectCycleModal: { open: boolean; selectedItem: number };
 }
 
 const initialState: State = {
   selectedItem: null,
-  edit: false,
+  edited: false,
   selectCycleModal: { open: false, selectedItem: 1 },
 };
 
@@ -30,7 +30,7 @@ const taskRegisterSlice = createSlice({
       state.selectedItem = action.payload;
     },
     setEdit: (state, action: PayloadAction<boolean>) => {
-      state.edit = action.payload;
+      state.edited = action.payload;
     },
     setOpenSelectCycleModal: (state, action: PayloadAction<boolean>) => {
       state.selectCycleModal.open = action.payload;

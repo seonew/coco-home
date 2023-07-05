@@ -44,7 +44,7 @@ const RegisterModal = ({ open }: RegisterModalProps) => {
       return;
     }
 
-    dispatch(actions.addNextHomeItem({ currentType, text }));
+    dispatch(actions.addCurrentHomeItem({ currentType, text }));
     handleClickItem();
   }, [currentType, dispatch, handleClickItem, text]);
 

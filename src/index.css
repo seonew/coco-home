@@ -28,14 +28,30 @@ div.day-picker input {
   bottom: 38px;
 }
 
-.mr8 {
-  margin-right: 8px;
+.ml5 {
+  margin-left: 5px;
+}
+
+.mr5 {
+  margin-right: 5px;
 }
 
 .mr6 {
   margin-right: 6px;
 }
 
+.mr8 {
+  margin-right: 8px;
+}
+
 .none {
   display: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
 }

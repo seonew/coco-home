@@ -1,14 +1,12 @@
-import { memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { actions } from 'stores/slice';
-import { RootState } from './stores';
-import { PAGE_PATH } from './constants/index';
+import { AUTH_KAKAO_URI, AUTH_URI, PAGE_PATH } from './constants/index';
 
 import styled from 'styled-components';
 import Callback from './pages/AuthCallback';
-import CallbackKakao from './pages/AuthCallback/Kakao';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Mypage from './pages/Mypage';
@@ -23,6 +21,7 @@ import SearchList from './pages/SearchList';
 import MenuBar from './components/MenuBar';
 import ConfirmModal from 'components/ConfirmModal';
 import AlertModal from 'components/AlertModal';
+import PrivateRoute from 'components/PrivateRoute';
 
 const AppLayout = styled.div`
   display: flex;
@@ -53,11 +52,19 @@ const App = () => {
     <AppLayout>
       <Switch>
         <Route exact path={PAGE_PATH.LOGIN} component={Login} />
-        <Route exact path={PAGE_PATH.AUTH_CALLBACK} component={Callback} />
+        <Route
+          exact
+          path={PAGE_PATH.AUTH_CALLBACK}
+          render={(routeProps) => (
+            <Callback {...routeProps} authUri={AUTH_URI} />
+          )}
+        />
         <Route
           exact
           path={PAGE_PATH.AUTH_CALLBACK_KAKAO}
-          component={CallbackKakao}
+          render={(routeProps) => (
+            <Callback {...routeProps} authUri={AUTH_KAKAO_URI} />
+          )}
         />
         <PrivateRoute
           path={[
@@ -136,19 +143,4 @@ const App = () => {
   );
 };
 
-const PrivateRoute = ({ children, ...rest }) => {
-  const isAuthenticated = useSelector<RootState, boolean>(
-    (state) => state.app.isAuthenticated
-  );
-
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        isAuthenticated ? children : <Redirect to={PAGE_PATH.LOGIN} />
-      }
-    />
-  );
-};
-
-export default memo(App);
+export default App;

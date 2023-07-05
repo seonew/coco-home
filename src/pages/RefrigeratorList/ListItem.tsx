@@ -96,7 +96,7 @@ const ListItem = ({ item }: ListItemProps) => {
         </Tag>
         <b>{item.targetItem}</b>
         <Date>{item.date ? item.date.toString() : ''}</Date>
-        <Date>{item.expirationDay ? item.expirationDay : ''}</Date>
+        <Date>{item.expirationDay ?? item.expirationDay}</Date>
         <span className={classes.button} onClick={handleClickDeleteItem}>
           <FontAwesomeIcon icon={faTrashAlt} size="1x" />
         </span>

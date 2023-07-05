@@ -5,8 +5,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { PAGE_PATH } from 'constants/index';
 
-const Callback = ({ history, location }) => {
-  const AUTH_URI = process.env.REACT_APP_AUTH_URI || '';
+const Callback = ({ history, location, authUri }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const Callback = ({ history, location }) => {
       });
 
       try {
-        const response = await axios.post(AUTH_URI, {
+        const response = await axios.post(authUri, {
           code,
         });
 
@@ -38,7 +37,7 @@ const Callback = ({ history, location }) => {
     }
 
     getToken();
-  }, [AUTH_URI, dispatch, location, history]);
+  }, [dispatch, location, history, authUri]);
   return null;
 };
 

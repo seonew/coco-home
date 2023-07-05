@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores';
-import { chart } from 'constants/index';
+import { CHART } from 'constants/index';
 
 import styled from 'styled-components';
 import { StatisticsByHomeTask } from 'types';
-import Doughnut from './charts/Doughnut';
+import Doughnut from '../../components/charts/Doughnut';
 
 interface ContentProps {
   title: string;
@@ -29,36 +29,34 @@ const Contents = ({ title, description }: ContentProps) => {
   const statistics = useSelector<RootState, StatisticsByHomeTask>(
     (state) => state.taskStatistics.statistics
   );
-  const { key, count } = statistics;
+  const { keys, counts } = statistics;
   const data = {
-    labels: key,
+    labels: keys,
     datasets: [
       {
         label: '# of Votes',
-        data: count,
-        backgroundColor: chart.BACKGROUND_COLOR,
-        borderColor: chart.BORDER_COLOR,
+        data: counts,
+        backgroundColor: CHART.BACKGROUND_COLOR,
+        borderColor: CHART.BORDER_COLOR,
         borderWidth: 1,
       },
     ],
   };
 
-  const target = (
-    <>
-      {count.length > 1 && count[0] === count[1]
-        ? key.map((item) => {
-            return item + ' ';
-          })
-        : key[0]}
-    </>
-  );
+  const target =
+    counts.length > 1 && counts[0] === counts[1]
+      ? keys.map((item) => item)
+      : keys[0];
 
   return (
     <>
       <Doughnut title={title} data={data} />
       <Text>
         <span>
-          {year}년 {month}월 {description} <strong>{target}</strong>
+          {year}년 {month}월 <span className="mr5">{description}</span>
+          <strong>
+            <span className="mr5">{target}</span>
+          </strong>
           입니다.
         </span>
       </Text>

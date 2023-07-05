@@ -4,14 +4,10 @@ import { RootState } from 'stores';
 import { actions } from './stores/slice';
 import { actions as appActions } from 'stores/slice';
 import {
-  ADDED_DATE,
-  ADDED_EXPIRATION_DATE,
-  COUNTER,
+  TextMessages,
   PAGE_PATH,
-  PRIORITY,
-  SPACE,
-  TARGET_ITEM,
-  pageNameByPathName,
+  REFRIGERATOR_SPACES,
+  PageNameByPathName,
 } from 'constants/index';
 import { RefrigeratorFood } from 'types';
 import { getMessage } from 'utils/common';
@@ -39,7 +35,7 @@ const RegisterRefrigerator = () => {
   const [priority, setPriority] = useState(0);
   const [date, setDate] = useState(new Date());
   const [expirationDay, setExpirationDay] = useState(0);
-  const spaces = ['냉장', '냉동'];
+  const [selectedToggle, setSelectedToggle] = useState('dday');
   const homeId = useSelector<RootState, string>(
     (state) => state.app.currentHome.id
   );
@@ -74,6 +70,8 @@ const RegisterRefrigerator = () => {
 
   const handleChangeToggle = useCallback(
     (current) => {
+      setSelectedToggle(current);
+
       if (current === 'calendar') {
         setExpirationDay(0);
       } else {
@@ -93,28 +91,35 @@ const RegisterRefrigerator = () => {
 
   const validate = useCallback(
     (nextRefrigeratorFood) => {
-      const keys = Object.keys(nextRefrigeratorFood);
-      const result = keys.some((key) => {
-        if (
-          (key !== 'id' &&
-            key !== 'expirationDay' &&
-            (nextRefrigeratorFood[key] === '' ||
-              nextRefrigeratorFood[key] === 0)) ||
-          (key === 'expirationDay' &&
-            nextRefrigeratorFood[key] === 0 &&
-            !showCalendar)
-        ) {
-          showAlertModal(getMessage(key));
-          return true;
-        }
-
-        if (key !== 'homeId' && nextRefrigeratorFood[key].length > 11) {
-          showAlertModal('10글자 이하로 입력해주세요.');
-          return true;
-        }
+      const targetKeysWithStringValues = ['space', 'targetItem'];
+      const invalidKeyWithStringValues = targetKeysWithStringValues.find(
+        (key) => nextRefrigeratorFood[key].length === 0
+      );
+      if (invalidKeyWithStringValues) {
+        showAlertModal(getMessage(invalidKeyWithStringValues));
         return false;
-      });
-      return result;
+      }
+
+      if (nextRefrigeratorFood['targetItem'].length > 11) {
+        showAlertModal('10글자 이하로 입력해주세요.');
+        return false;
+      }
+
+      const targetKeysWithNumberValues = ['count', 'priority'];
+      const invalidKeyWithNumberValues = targetKeysWithNumberValues.find(
+        (key) => nextRefrigeratorFood[key] === 0
+      );
+      if (invalidKeyWithNumberValues) {
+        showAlertModal(getMessage(invalidKeyWithNumberValues));
+        return false;
+      }
+
+      if (!showCalendar && nextRefrigeratorFood['expirationDay'] === 0) {
+        showAlertModal(getMessage('expirationDay'));
+        return false;
+      }
+
+      return true;
     },
     [showAlertModal, showCalendar]
   );
@@ -131,7 +136,7 @@ const RegisterRefrigerator = () => {
       expirationDay: expirationDay,
     };
 
-    if (validate(nextRefrigeratorFood)) {
+    if (!validate(nextRefrigeratorFood)) {
       return;
     }
 
@@ -151,36 +156,36 @@ const RegisterRefrigerator = () => {
   return (
     <Root>
       <HeaderButtonContainer
-        text={pageNameByPathName[PAGE_PATH.REFRIGERATOR_REGISTER]}
+        text={PageNameByPathName[PAGE_PATH.REFRIGERATOR_REGISTER]}
         onClickSaveContents={handleSaveContents}
       />
-      <Row text={SPACE} required={true}>
+      <Row text={TextMessages.SPACE} required={true}>
         <ChipList
           type={'space'}
-          items={spaces}
+          items={REFRIGERATOR_SPACES}
           selectedItem={space}
           onClickItem={handleClickSpace}
         />
       </Row>
-      <Row text={TARGET_ITEM} required={true}>
+      <Row text={TextMessages.TARGET_ITEM} required={true}>
         <TextField onChange={handleChangeTextField} />
       </Row>
-      <Row text={COUNTER} required={true}>
+      <Row text={TextMessages.COUNTER} required={true}>
         <Counter onClickItem={handleClickCount} />
       </Row>
-      <Row text={PRIORITY} required={true}>
+      <Row text={TextMessages.PRIORITY} required={true}>
         <Rating onClickItem={handleClickPriority} />
       </Row>
       <div>
-        <Toggle onChange={handleChangeToggle} />
+        <Toggle selectedItem={selectedToggle} onChange={handleChangeToggle} />
         {showCalendar ? (
-          <Row text={ADDED_DATE} required={true}>
+          <Row text={TextMessages.ADDED_DATE} required={true}>
             <DatePicker onClickItem={handleClickDate} />
           </Row>
         ) : (
-          <Row text={ADDED_EXPIRATION_DATE} required={true}>
+          <Row text={TextMessages.ADDED_EXPIRATION_DATE} required={true}>
             <ExpirationDay
-              text={expirationDay}
+              day={expirationDay}
               onChange={handleChangeExpirationDay}
             />
           </Row>

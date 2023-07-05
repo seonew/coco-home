@@ -34,7 +34,7 @@ const modifiersStyles = {
   },
 };
 
-const DatePickerContainer = ({ date, onClickItem }: DatePickerProps) => {
+const DatePicker = ({ date, onClickItem }: DatePickerProps) => {
   const [selectedDate, setSelectedDate] = useState(date ?? new Date());
 
   const months = CALENDAR.MONTHS;
@@ -51,7 +51,6 @@ const DatePickerContainer = ({ date, onClickItem }: DatePickerProps) => {
     if (DateUtils.isDate(date)) {
       return date;
     }
-    return undefined;
   };
 
   const formatDate = (date, format, locale) => {
@@ -78,4 +77,4 @@ const DatePickerContainer = ({ date, onClickItem }: DatePickerProps) => {
   );
 };
 
-export default memo(DatePickerContainer);
+export default memo(DatePicker);
