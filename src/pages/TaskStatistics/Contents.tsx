@@ -50,7 +50,10 @@ const Contents = ({ title, description }: ContentProps) => {
 
   return (
     <>
-      <Doughnut title={title} data={data} />
+      <div>
+        <h2>{title}</h2>
+      </div>
+      <Doughnut data={data} />
       <Text>
         <span>
           {year}년 {month}월 <span className="mr5">{description}</span>

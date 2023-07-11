@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Pie } from 'react-chartjs-2';
+import { memo } from 'react';
 
 const Root = styled.div`
   padding: 0.9rem 1.3rem;
@@ -7,17 +8,12 @@ const Root = styled.div`
   background-color: #fff;
 `;
 
-const PieChart = (props) => {
-  const { data, title } = props;
-
+const PieChart = ({ data }) => {
   return (
     <Root>
-      <div>
-        <h2>{title}</h2>
-      </div>
       <Pie type={'pie'} data={data} />
     </Root>
   );
 };
 
-export default PieChart;
+export default memo(PieChart);
